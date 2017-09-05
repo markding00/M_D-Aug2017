@@ -14,12 +14,12 @@ public class Calculate {
 	}
 	
 	//This method takes 2 numbers and return their average.
-	public static double aver2Numbers(double a, double b) {
+	public static double average(double a, double b) {
 		return (a + b)/2;
 	}
 	
 	//This method takes 3 numbers and return their average.
-	public static double aver3Numbers(double a, double b, double c) {
+	public static double average(double a, double b, double c) {
 		return (a + b + c)/3;
 	}
 	
@@ -43,8 +43,14 @@ public class Calculate {
 	
 	/*This method takes 3 integers and return
 	*a string where it shows the proper fraction. 
-	*/
-	public 
+	*/ 
+	public static String toImproperFrac(int a, int b, int c) {
+		int numerator = a * c + b;
+		int denominator = c;
+		String improp;
+		improp = numerator + "/" + denominator;
+		return improp;
+	}
 }
 
 
