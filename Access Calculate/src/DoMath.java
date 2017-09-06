@@ -6,7 +6,7 @@
 public class DoMath {
 
 	public static void main(String[] args) {
-		System.out.println(Calculate.discriminant(2.4, 2.5, 6.0));
+		System.out.println(Calculate.toMixedNum(8, 3));
 	
 	}
 
