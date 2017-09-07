@@ -107,7 +107,7 @@ public class Calculate {
 	
 	//This method takes 3 double and return the biggest value.
 		public static double max(double a, double b, double c) {
-			if (a > b&&c) {
+			if (a > b) {
 				return a;
 			}else {
 				return b;
