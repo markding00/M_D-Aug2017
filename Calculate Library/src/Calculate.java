@@ -57,7 +57,7 @@ public class Calculate {
 	 * shows an improper fraction. 
 	 */
 	public static String toMixedNum(int top, int bottom){
-		int wholeNumber = top % bottom;
+		int wholeNumber = top / bottom;
 		int numerator = top - wholeNumber * bottom;
 		int denominator = bottom;
 		String mixedNum = wholeNumber + "_" + numerator + "/" + denominator; 
@@ -74,9 +74,47 @@ public class Calculate {
 		int secondCoef = a * d - b * c;
 		int constantNum = b * d;
 		String quadratic = firstCoef + n + "^2 + " + secondCoef + n + " +" + constantNum;
-
 		return quadratic;
 	}
+	
+	//This method takes 2 integers and return a boolean that determines whether or not 
+	//one integer is evenly divisible by another.
+	public static boolean isDivisibleBy(int a, int b) {
+		if (a % b == 0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	// This method takes a double and return its absolute value
+	public static double absValue(double a) {
+		if(a > 0) {
+			return a;
+		}else {
+			return -1 * a;
+		}
+	}
+	
+	//This method takes 2 double and return the bigger value.
+	public static double max(double a, double b) {
+		if (a > b) {
+			return a;
+		}else {
+			return b;
+		}
+	}
+	
+	//This method takes 3 double and return the biggest value.
+		public static double max(double a, double b, double c) {
+			if (a > b&&c) {
+				return a;
+			}else {
+				return b;
+			}
+		}
+	
+	
 
 }
 

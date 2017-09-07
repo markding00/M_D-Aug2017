@@ -6,7 +6,7 @@
 public class DoMath {
 
 	public static void main(String[] args) {
-		System.out.println(Calculate.toMixedNum(8, 3));
+		System.out.println(Calculate.absValue(-3));
 	
 	}
 
