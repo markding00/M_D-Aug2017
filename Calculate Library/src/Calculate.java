@@ -1,3 +1,5 @@
+import java.text.DecimalFormat;
+
 //Mark Ding
 //September 5, 2017
 //This is a homegrown library that will contain various math method. 
@@ -106,16 +108,32 @@ public class Calculate {
 	}
 	
 	//This method takes 3 double and return the biggest value.
-		public static double max(double a, double b, double c) {
-			if (a > b) {
-				return a;
-			}else {
-				return b;
+	public static double max(double a, double b, double c) {
+		if (a > b) {
+			return a;
+		}else if(b> c) {
+			return b;
+		}else {
+			return c;
 			}
 		}
 	
+	//This method takes 2 integers and return the smaller number.
+	public static int min(int a, int b) {
+		if (a > b) {
+			return b;
+		}else {
+			return a;
+		}
+	}
 	
+	//This method takes a double and return a double with 2 decimal places. 
+	public static double round2(double a) {
+		  DecimalFormat twoDForm = new DecimalFormat("#.##");
+		  return Double.valueOf(twoDForm.format(a));
+	}
 
+	
 }
 
 
