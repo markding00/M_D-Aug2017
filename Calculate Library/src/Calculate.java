@@ -93,6 +93,8 @@ public class Calculate {
 	public static double absValue(double a) {
 		if(a > 0) {
 			return a;
+		}else if(a == 0) {
+			return 0;
 		}else {
 			return -1 * a;
 		}
@@ -129,11 +131,11 @@ public class Calculate {
 	
 	//This method takes a double and return a double with 2 decimal places. 
 	public static double round2(double a) {
-		  DecimalFormat twoDForm = new DecimalFormat("#.##");
-		  return Double.valueOf(twoDForm.format(a));
-	}
-
-	
+		  if (a * 1000 % 10 < 5) {
+			  return (a * 1000 - a * 1000 % 10) / 100;
+		  }else {
+			  return a;
+		  }
 }
 
 
