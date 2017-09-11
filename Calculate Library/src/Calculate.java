@@ -134,7 +134,7 @@ public class Calculate {
 		  if (a * 1000 % 10 < 5) {
 			  return (a * 1000 - a * 1000 % 10) / 100;
 		  }else {
-			  return a;
+			  return (10 - a * 1000 % 10 + a * 1000) / 100;
 		  }
 }
 
