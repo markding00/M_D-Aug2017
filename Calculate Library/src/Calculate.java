@@ -1,4 +1,3 @@
-kkkkkk
 //Mark Ding
 //September 5, 2017
 //This is a homegrown library that will contain various math method. 
