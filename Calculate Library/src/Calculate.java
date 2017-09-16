@@ -1,4 +1,3 @@
-import java.text.DecimalFormat;
 
 //Mark Ding
 //September 5, 2017
@@ -136,6 +135,9 @@ public class Calculate {
 		  }else {
 			  return (10 - a * 1000 % 10 + a * 1000) / 100;
 		  }
+	}
+
+	
 }
 
 
