@@ -136,6 +136,8 @@ public class Calculate {
 		  }else {
 			  return (10 - a * 1000 % 10 + a * 1000) / 100;
 		  }
+	}
+	
 }
 
 
