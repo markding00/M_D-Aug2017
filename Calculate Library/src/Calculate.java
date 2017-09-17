@@ -130,10 +130,47 @@ public class Calculate {
 	//This method takes a double and return a double with 2 decimal places. 
 	public static double round2(double a) {
 		  if (a * 1000 % 10 < 5) {
-			  return (a * 1000 - a * 1000 % 10) / 100;
+			  return (a * 1000 - a * 1000 % 10) / 1000;
 		  }else {
-			  return (10 - a * 1000 % 10 + a * 1000) / 100;
+			  return (10 - a * 1000 % 10 + a * 1000) / 1000;
 		  }
+	}
+	
+	/*
+	 * This method takes 2 integers and return their greatest common factor. 
+	 */
+	public static int gcf(int num1, int num2) {
+		int originalNum1 = num1;
+		int originalNum2 = num2;
+		while(num2!=0){
+			if(Calculate.isDivisibleBy(originalNum1, originalNum2) == true){
+				return (int) absValue(num1 / num2);
+			}else{
+				num1 = num2;
+				num2 = originalNum1 % num1;
+		    }
+		}
+		return (int) absValue(num1);
+	}
+	
+	/*
+	 * This method takes a double and returns its square root. 
+	 */
+	public static double sqrt(double num) {
+		double guessNumber = 0; 
+		double result;
+		if(num == 0) {
+			result = 0;
+		}else if(num > 0) {
+			result = num / 2;
+			while(absValue(guessNumber - result) >= 0.005) {
+				guessNumber = result;
+				result = (guessNumber + (num / guessNumber)) / 2;
+			}
+		}else {
+			return num;
+		}
+		return round2(result);
 	}
 }
 
