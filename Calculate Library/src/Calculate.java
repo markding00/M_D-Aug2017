@@ -1,4 +1,3 @@
-
 //Mark Ding
 //September 5, 2017
 //This is a homegrown library that will contain various math method. 
@@ -136,8 +135,6 @@ public class Calculate {
 			  return (10 - a * 1000 % 10 + a * 1000) / 100;
 		  }
 	}
-
-	
 }
 
 
