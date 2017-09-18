@@ -129,11 +129,66 @@ public class Calculate {
 	
 	//This method takes a double and return a double with 2 decimal places. 
 	public static double round2(double a) {
-		  if (a * 1000 % 10 < 5) {
-			  return (a * 1000 - a * 1000 % 10) / 1000;
-		  }else {
-			  return (10 - a * 1000 % 10 + a * 1000) / 1000;
-		  }
+		if(a < 0) {
+			a *= -1;
+			if (a * 1000 % 10 < 5) {
+				a = (a * 1000 - a * 1000 % 10) / 1000;
+			}else {
+				a = (10 - a * 1000 % 10 + a * 1000) / 1000;
+			}
+			a *= -1;
+			return a;
+		}else {
+			if(a * 1000 % 10 < 5) {
+				return (a * 1000 - a * 1000 % 10) / 1000;
+			}else {
+				return (10 - a * 1000 % 10 + a * 1000) / 1000;
+			}
+		}
+	}
+
+	
+	/*
+	 * This method takes a double and an integer and returns a double. 
+	 * the integer is the exponent of that double.
+	 */
+	public static double exponent(double a, int b) {
+		double initialA = a;
+		if (b > 0) {
+			for(int i = 1; i <= b - 1; i++) {
+				a *= initialA;
+			}
+		}if(b == 0){
+			return 1.0;
+		}
+		return a;
+	}
+	
+	/*
+	 * this method accepts an integer and returns the factorial of the value passed.
+	 */
+	public static int factorial(int a) {
+		int base = a;
+		for(int i = a; i >= 1; i--) {
+			a *= i;
+		}
+		return a/base;
+	}
+	
+	/*
+	 * this method takes one integer and returns a boolean that indicates 
+	 * whether the number is a prime number or not.
+	 */
+	public static boolean isPrime(int a) {
+		if (a <= 0) {
+			return false;
+		}
+		for(int i = 2; i <= a - 1; i++) {
+			if (Calculate.isDivisibleBy(a, i) == true) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	/*
