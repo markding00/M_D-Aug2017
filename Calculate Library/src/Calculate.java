@@ -201,8 +201,9 @@ public class Calculate {
 			if(Calculate.isDivisibleBy(originalNum1, originalNum2) == true){
 				return (int) absValue(num1 / num2);
 			}else{
+				int num3 = num1;
 				num1 = num2;
-				num2 = originalNum1 % num1;
+				num2 = num3 % num2;
 		    }
 		}
 		return (int) absValue(num1);
