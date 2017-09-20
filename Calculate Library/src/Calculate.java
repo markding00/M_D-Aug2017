@@ -79,8 +79,11 @@ public class Calculate {
 	
 	//This method takes 2 integers and return a boolean that determines whether or not 
 	//one integer is evenly divisible by another.
-	public static boolean isDivisibleBy(int a, int b) {
-		if (a % b == 0) {
+	public static boolean isDivisibleBy(int num1, int num2) {
+		if (num2 == 0) {
+			throw new IllegalArgumentException("The denominator cannot be 0");
+		}
+		if (num1 % num2 == 0) {
 			return true;
 		}else {
 			return false;
@@ -152,27 +155,35 @@ public class Calculate {
 	 * This method takes a double and an integer and returns a double. 
 	 * the integer is the exponent of that double.
 	 */
-	public static double exponent(double a, int b) {
-		double initialA = a;
-		if (b > 0) {
-			for(int i = 1; i <= b - 1; i++) {
-				a *= initialA;
+	public static double exponent(double num1, int num2) {
+		double initialA = num1;
+		if (num2 > 0) {
+			for(int i = 1; i <= num2 - 1; i++) {
+				num1 *= initialA;
 			}
-		}if(b == 0){
+		}else if(num2 == 0){
 			return 1.0;
+		}else if(num2 < 0) {
+			throw new IllegalArgumentException(num1 + " is less than 0, no exponent");
 		}
-		return a;
+		return num1;
 	}
 	
 	/*
 	 * this method accepts an integer and returns the factorial of the value passed.
 	 */
-	public static int factorial(int a) {
-		int base = a;
-		for(int i = a; i >= 1; i--) {
-			a *= i;
-		}
-		return a/base;
+	public static int factorial(int num) {
+		int base = num;
+		if(num < 0) {
+			throw new IllegalArgumentException(num + " is less than 0, no factorial");
+		}else if(num == 0) {
+			return 1;
+		}else if(num > 0) {
+			for(int i = num; i >= 1; i--) {
+				num *= i;
+			}
+		}	
+		return num/base;
 	}
 	
 	/*
@@ -224,9 +235,28 @@ public class Calculate {
 				result = (guessNumber + (num / guessNumber)) / 2;
 			}
 		}else {
-			return num;
+			throw new IllegalArgumentException("no square root of negative number");
 		}
 		return round2(result);
+	}
+	
+	/*
+	 * this method takes 3 coefficients from the quadratic formula and return a string that 
+	 * shows the x-value of this quadratic formula.
+	 */
+	public static String quadForm(int coef1, int coef2, int coef3) {
+		String result;
+		if(Calculate.discriminant(coef1, coef2, coef3) < 0) {
+			result = "no real roots";
+		}else if(Calculate.discriminant(coef1, coef2, coef3) == 0) {
+			double answer = round2(-coef2 / 2 * coef1);
+			result = answer + "";
+		}else {
+			double answerSmall = (-coef2 - sqrt(square(coef2) - 4 * coef1 * coef3)) / (2 * coef1); 
+			double answerLarge = (-coef2 + sqrt(square(coef2) - 4 * coef1 * coef3)) / (2 * coef1);
+			result = round2(answerSmall) + " and " + round2(answerLarge);
+		}
+		return result;
 	}
 }
 

@@ -6,7 +6,7 @@
 public class DoMath {
 	
 	public static void main(String[] args) {
-		System.out.println(Calculate.gcf(20, 60));
+		System.out.println(Calculate.quadForm(1, 1, 1));
 	}
 
 }
