@@ -164,7 +164,7 @@ public class Calculate {
 		}else if(num2 == 0){
 			return 1.0;
 		}else if(num2 < 0) {
-			throw new IllegalArgumentException(num1 + " is less than 0, no exponent");
+			throw new IllegalArgumentException("Number cannot be less than 0");
 		}
 		return num1;
 	}
@@ -175,7 +175,7 @@ public class Calculate {
 	public static int factorial(int num) {
 		int base = num;
 		if(num < 0) {
-			throw new IllegalArgumentException(num + " is less than 0, no factorial");
+			throw new IllegalArgumentException("Number cannot be less than 0");
 		}else if(num == 0) {
 			return 1;
 		}else if(num > 0) {
