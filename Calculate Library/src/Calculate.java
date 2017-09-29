@@ -14,13 +14,13 @@ public class Calculate {
 	}
 	
 	//This method takes 2 numbers and return their average.
-	public static double average(double a, double b) {
-		return (a + b)/2;
+	public static double average(double num1, double num2) {
+		return (num1 + num2)/2;
 	}
 	
 	//This method takes 3 numbers and return their average.
-	public static double average(double a, double b, double c) {
-		return (a + b + c)/3;
+	public static double average(double num1, double num2, double num3) {
+		return (num1 + num2 + num3)/3;
 	}
 	
 	//This method converts radians into degrees.
@@ -37,16 +37,16 @@ public class Calculate {
 	
 	
 	//This method takes 3 coefficients and return the value of the discriminant.
-	public static double discriminant(double a, double b, double c) {
-		return (b * b) - 4 * a * c;
+	public static double discriminant(double coef1, double coef2, double coef3) {
+		return (coef2 * coef2) - 4 * coef1 * coef3;
 	}
 	
 	/*This method takes 3 integers and return
 	*a string where it shows the proper fraction. 
 	*/ 
-	public static String toImproperFrac(int a, int b, int c) {
-		int numerator = a * c + b;
-		int denominator = c;
+	public static String toImproperFrac(int wholeNum, int top, int bottom) {
+		int numerator = wholeNum * bottom + top;
+		int denominator = bottom;
 		String improp;
 		improp = numerator + "/" + denominator;
 		return improp;
@@ -91,22 +91,22 @@ public class Calculate {
 	}
 	
 	// This method takes a double and return its absolute value
-	public static double absValue(double a) {
-		if(a > 0) {
-			return a;
-		}else if(a == 0) {
+	public static double absValue(double num) {
+		if(num > 0) {
+			return num;
+		}else if(num == 0) {
 			return 0;
 		}else {
-			return -1 * a;
+			return -1 * num;
 		}
 	}
 	
 	//This method takes 2 double and return the bigger value.
-	public static double max(double a, double b) {
-		if (a > b) {
-			return a;
+	public static double max(double num1, double num2) {
+		if (num1 > num2) {
+			return num1;
 		}else {
-			return b;
+			return num2;
 		}
 	}
 	
@@ -131,21 +131,21 @@ public class Calculate {
 	}
 	
 	//This method takes a double and return a double with 2 decimal places. 
-	public static double round2(double a) {
-		if(a < 0) {
-			a *= -1;
-			if (a * 1000 % 10 < 5) {
-				a = (a * 1000 - a * 1000 % 10) / 1000;
+	public static double round2(double num) {
+		if(num < 0) {
+			num *= -1;
+			if (num * 1000 % 10 < 5) {
+				num = (num * 1000 - num * 1000 % 10) / 1000;
 			}else {
-				a = (10 - a * 1000 % 10 + a * 1000) / 1000;
+				num = (10 - num * 1000 % 10 + num * 1000) / 1000;
 			}
-			a *= -1;
-			return a;
+			num *= -1;
+			return num;
 		}else {
-			if(a * 1000 % 10 < 5) {
-				return (a * 1000 - a * 1000 % 10) / 1000;
+			if(num * 1000 % 10 < 5) {
+				return (num * 1000 - num * 1000 % 10) / 1000;
 			}else {
-				return (10 - a * 1000 % 10 + a * 1000) / 1000;
+				return (10 - num * 1000 % 10 + num * 1000) / 1000;
 			}
 		}
 	}
@@ -190,12 +190,12 @@ public class Calculate {
 	 * this method takes one integer and returns a boolean that indicates 
 	 * whether the number is a prime number or not.
 	 */
-	public static boolean isPrime(int a) {
-		if (a <= 0) {
+	public static boolean isPrime(int num) {
+		if (num <= 0) {
 			return false;
 		}
-		for(int i = 2; i <= a - 1; i++) {
-			if (Calculate.isDivisibleBy(a, i) == true) {
+		for(int i = 2; i <= num - 1; i++) {
+			if (Calculate.isDivisibleBy(num, i) == true) {
 				return false;
 			}
 		}
