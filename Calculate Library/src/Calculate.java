@@ -69,10 +69,10 @@ public class Calculate {
 	 * a quadratic equation of the form ax^2 + bx + c. It will takes 4 integers and 1 string 
 	 * and then returns a string.
 	 */
-	public static String foil(int a, int b, int c, int d, String n){
-		int firstCoef = a * c;
-		int secondCoef = a * d - b * c;
-		int constantNum = b * d;
+	public static String foil(int num1, int num2, int num3, int num4, String n){
+		int firstCoef = num1 * num3;
+		int secondCoef = num1 * num4 - num2 * num3;
+		int constantNum = num2 * num4;
 		String quadratic = firstCoef + n + "^2 + " + secondCoef + n + " +" + constantNum;
 		return quadratic;
 	}
@@ -111,30 +111,31 @@ public class Calculate {
 	}
 	
 	//This method takes 3 double and return the biggest value.
-	public static double max(double a, double b, double c) {
-		if (a > b) {
-			return a;
-		}else if(b> c) {
-			return b;
+	public static double max(double num1, double num2, double num3) {
+		if (num1 > num2) {
+			return num1;
+		}else if(num2> num3) {
+			return num2;
 		}else {
-			return c;
+			return num3;
 			}
 		}
 	
 	//This method takes 2 integers and return the smaller number.
-	public static int min(int a, int b) {
-		if (a > b) {
-			return b;
+	public static int min(int num1, int num2) {
+		if (num1 > num2) {
+			return num2;
 		}else {
-			return a;
+			return num1;
 		}
 	}
 	
 	//This method takes a double and return a double with 2 decimal places. 
 	public static double round2(double num) {
+		double remainder = num * 1000 % 10;
 		if(num < 0) {
 			num *= -1;
-			if (num * 1000 % 10 < 5) {
+			if (remainder < 5) {
 				num = (num * 1000 - num * 1000 % 10) / 1000;
 			}else {
 				num = (10 - num * 1000 % 10 + num * 1000) / 1000;
@@ -142,7 +143,7 @@ public class Calculate {
 			num *= -1;
 			return num;
 		}else {
-			if(num * 1000 % 10 < 5) {
+			if(remainder < 5) {
 				return (num * 1000 - num * 1000 % 10) / 1000;
 			}else {
 				return (10 - num * 1000 % 10 + num * 1000) / 1000;
@@ -252,9 +253,13 @@ public class Calculate {
 			double answer = round2(-coef2 / 2 * coef1);
 			result = answer + "";
 		}else {
-			double answerSmall = (-coef2 - sqrt(square(coef2) - 4 * coef1 * coef3)) / (2 * coef1); 
-			double answerLarge = (-coef2 + sqrt(square(coef2) - 4 * coef1 * coef3)) / (2 * coef1);
-			result = round2(answerSmall) + " and " + round2(answerLarge);
+			double answer1 = (-coef2 - sqrt(square(coef2) - 4 * coef1 * coef3)) / (2 * coef1); 
+			double answer2 = (-coef2 + sqrt(square(coef2) - 4 * coef1 * coef3)) / (2 * coef1);
+			if(answer1 < answer2) {
+				result = round2(answer1) + " and " + round2(answer2);
+			}else {
+				result = round2(answer2) + " and " + round2(answer1);
+			}
 		}
 		return result;
 	}
