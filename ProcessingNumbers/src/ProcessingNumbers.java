@@ -11,15 +11,17 @@ public class ProcessingNumbers {
 		System.out.println("How many numbers do you want?");
 		Scanner userinput = new Scanner(System.in);
 		int totalNumber = userinput.nextInt();
-		
-		System.out.println("What are the numbers?");
 		int next;
 		
-		int maximum = 0;
-		int minimum = 0;
-		int sumEven = 0;
-		int largestEven = 0;
-		for(int i = 0; i < totalNumber; i++) {
+		System.out.println("What are the numbers?");
+		next = userinput.nextInt();
+		
+		int maximum = next;
+		int minimum = next;
+		int sumEven = next;
+		int largestEven = next;
+		
+		for(int i = 1; i < totalNumber; i++) {
 			next = userinput.nextInt();
 			if(next > maximum) {
 				maximum = next;
