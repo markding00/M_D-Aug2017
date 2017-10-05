@@ -49,10 +49,6 @@ public class ProcessingNumbers {
 		System.out.println("The sum of all the even numbers is " + sumEven);
 		System.out.println("Largest Even Number: " + largestEven);
 		
-		
-		
-		
-		
 	}
 
 }
