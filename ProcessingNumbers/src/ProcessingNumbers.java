@@ -25,17 +25,31 @@ public class ProcessingNumbers {
 		for(int i = 1; i < totalNumber; i++) {
 			//This if statement can find the maximum in this string of numbers.
 			next = userinput.nextInt();
+			
+			//This if statement can find the maximum in this string of numbers.
 			if(next > maximum) {
 				maximum = next;
 			}
+<<<<<<< HEAD
+=======
+			
+>>>>>>> 660a666cca7a9092e5c287d3725816b2e09d4266
 			//This if statement can find the minimum in this string of numbers.
 			if(next < minimum) {
 				minimum = next;
 			}
+<<<<<<< HEAD
+=======
+			
+>>>>>>> 660a666cca7a9092e5c287d3725816b2e09d4266
 			//This if statement can find the sum of all the even numbers.
 			if(next % 2 == 0) {
 				sumEven += next;
 			}
+<<<<<<< HEAD
+=======
+			
+>>>>>>> 660a666cca7a9092e5c287d3725816b2e09d4266
 			//This if statement can find the largest even number in this string of numbers.
 			if(next > largestEven && next % 2 == 0) {
 				largestEven = next;
