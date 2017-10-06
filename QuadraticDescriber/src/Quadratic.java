@@ -1,3 +1,4 @@
+import java.util.Scanner;
 /*
  * Mark Ding
  * September 26, 2017
