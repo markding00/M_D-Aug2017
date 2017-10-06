@@ -19,7 +19,7 @@ public class ProcessingNumbers {
 		//initialization
 		int maximum = next;
 		int minimum = next;
-		int sumEven = next;
+		int sumEven = 0;
 		int largestEven = next;
 		
 		for(int i = 1; i < totalNumber; i++) {
