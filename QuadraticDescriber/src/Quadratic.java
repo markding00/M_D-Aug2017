@@ -1,4 +1,3 @@
-import java.util.Scanner;
 /*
  * Mark Ding
  * September 26, 2017
@@ -6,6 +5,37 @@ import java.util.Scanner;
  */
 
 public class Quadratic {
+	
+	public static String quadrDescriber(double coef1, double coef2, double coef3) {
+		
+		String equation = "y = " + (double)(coef1) + " x^2 + " + (double)(coef2) + " x + " + (double)(coef3);
+		String description = "\nDescription of the graph of: \n" + equation + "\n";
+		
+		String direction = "Open: "; 
+		if(coef1 > 0) {
+			direction = direction + "Up";
+		}else if(coef1 < 0) {
+			direction = direction + "Down";
+		}else{
+			throw new IllegalArgumentException("This is not a quadratic equation.");
+		}
+		
+		double numAOS = round2(-coef2 / (2 * coef1));
+		String aos = "Axis of Symmetry: " + numAOS;
+		
+		double xVertex = round2(-coef2 / (2 * coef1));
+		double yVertex = coef1 * square(xVertex) + coef2 * xVertex + coef3;
+		String vertex = "Vertex: (" + xVertex + ", " + yVertex + ")";
+		
+		String roots = quadForm(coef1, coef2, coef3);
+		String xIntercept = "x-intercept(s): " + roots;
+		String yIntercept = "y-intercept: " + coef3;
+		
+		String total = description + "\n" + direction + "\n" + aos + "\n" + vertex + "\n" +
+						xIntercept + "\n" + yIntercept + "\n"; 
+		return total; 
+	}
+	
 	
 	public static double absValue(double num) {
 		if(num > 0) {
@@ -36,6 +66,8 @@ public class Quadratic {
 			}
 		}
 	}
+
+
 	
 	public static double sqrt(double num) {
 		double guessNumber = 0; 
@@ -54,22 +86,32 @@ public class Quadratic {
 		return round2(result);
 	}
 	
-	public static String quadrDescriber(double coef1, double coef2, double coef3) {
-		String intro = "Welcome to the Quadratic Describer\nProvide values for coefficients a, b, and c";
-		String num1 = "a: " + coef1;
-		String num2 = "b: " + coef2;
-		String num3 = "c: " + coef3;
-		
-		String equation = "y = " + (double)(coef1) + " x^2 + " + (double)(coef2) + " x + " + (double)(coef3);
-		String description = "\nDescription of the graph of: \n" + equation;
-		
-		String total = intro + num1 + num2 + num3 + description; 
-		return total; 
-		
+	public static String quadForm(double coef1, double coef2, double coef3) {
+		String result;
+		if(discriminant(coef1, coef2, coef3) < 0) {
+			result = "None";
+		}else if(discriminant(coef1, coef2, coef3) == 0) {
+			double answer = round2(-coef2 / 2 * coef1);
+			result = answer + "";
+		}else {
+			double answer1 = (-coef2 - sqrt(square(coef2) - 4 * coef1 * coef3)) / (2 * coef1); 
+			double answer2 = (-coef2 + sqrt(square(coef2) - 4 * coef1 * coef3)) / (2 * coef1);
+			if(answer1 < answer2) {
+				result = round2(answer1) + " and " + round2(answer2);
+			}else {
+				result = round2(answer2) + " and " + round2(answer1);
+			}
+		}
+		return result;
 	}
 	
+	public static double square(double coef2) {
+		return round2(coef2 * coef2);
+	}
 	
-	
+	public static double discriminant(double coef1, double coef2, double coef3) {
+		return (coef2 * coef2) - 4 * coef1 * coef3;
+	}
 	
 	
 }
