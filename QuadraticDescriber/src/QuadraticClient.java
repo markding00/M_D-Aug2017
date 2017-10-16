@@ -14,7 +14,7 @@ public class QuadraticClient {
 		
 		boolean done = false;
 		
-		while(done == false) {
+		while(!done) {
 			System.out.print("a: ");
 			double coefA = userInput.nextDouble();
 			System.out.print("b: ");
@@ -26,7 +26,7 @@ public class QuadraticClient {
 		
 			System.out.println("Do you want to keep going? (Type \"quit\" to end)");
 			String exit = userInput.next();
-			if(exit == "quit") {
+			if(exit.equals("quit")) {
 				done = true;
 			}
 			System.out.println();
