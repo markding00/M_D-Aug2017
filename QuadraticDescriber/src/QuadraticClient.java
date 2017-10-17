@@ -7,6 +7,7 @@ import java.util.*;
  */
 public class QuadraticClient {
 
+	//This is the main method that runs code from Quadratic.java and print out all teh results.
 	public static void main(String[] args) {
 		Scanner userInput = new Scanner(System.in);
 		
@@ -14,6 +15,7 @@ public class QuadraticClient {
 		
 		boolean done = false;
 		
+		//This while loop helps the user run all the code again.
 		while(!done) {
 			System.out.print("a: ");
 			double coefA = userInput.nextDouble();
