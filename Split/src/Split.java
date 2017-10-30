@@ -1,5 +1,11 @@
 import java.util.Arrays;
 
+/*
+ * Mark Ding
+ * Ms.Dreyer 
+ * APCS1 10/30/2017
+ * Split class is working with the concept of Split method.
+ */
 public class Split {
 
 	public static void main(String[] args) {
@@ -43,6 +49,15 @@ public class Split {
 	public static String sandwich(String bread) {
 		String[] realSandwich = bread.split("bread");
 		return realSandwich[1];
+	}
+	
+	//Your task pt 2:
+			/*Write a method that take in a string like "apples pineapples bread lettus tomato bacon mayo ham bread cheese" describing a sandwich
+			* use String.split to split up the sandwich at the spaces, " ", and return what's in the middle of the sandwich and ignores what's on the outside
+			* Again, what if it's a fancy sandwich with multiple pieces of bread?
+			*/
+	public static String bigSandwich(String bread) {
+		
 	}
 	
 	
