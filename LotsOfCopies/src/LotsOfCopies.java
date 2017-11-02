@@ -18,12 +18,7 @@ public class LotsOfCopies {
 		changeMe(num, strMain, arrMain);
 		System.out.println(num + "\n" + strMain + "\n" + Arrays.toString(arrMain));
 		
-		//The following statements test that if the second value will change, when it equals to 
-		//the first value and the first value is changed. 
-		int a = 5;
-		int b = a; 
-		a = 10;
-		System.out.println(b);
+		
 	}
 	
 	//change the value inside the method
@@ -33,8 +28,21 @@ public class LotsOfCopies {
 		for(int i = 0; i < arr.length; i++) {
 			arr[i] = i + 3; 
 		}
+		
+		//The following statements test that if the second value will change, when it equals to 
+		//the first value and the first value is changed. 
+		int b = x; 
+		x = 10;
+		System.out.println(b);
+		
+		String string = str;
+		str = "hhhhhh";
+		System.out.println(string);
+		
+		int[] arrays = arr;
+		for(int i = 0; i < arr.length; i++) {
+			arr[i] = i; 
+		}
+		System.out.println(Arrays.toString(arrays));
 	}
-	
-	
-
 }
