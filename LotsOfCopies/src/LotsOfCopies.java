@@ -16,6 +16,7 @@ public class LotsOfCopies {
 		//pass three variables above into a method that has been changed values inside, 
 		//in order to determine whether the value changes or not. 
 		changeMe(num, strMain, arrMain);
+		System.out.println(num + "\n" + strMain + "\n" + Arrays.toString(arrMain));
 		
 		//The following statements test that if the second value will change, when it equals to 
 		//the first value and the first value is changed. 
@@ -32,7 +33,6 @@ public class LotsOfCopies {
 		for(int i = 0; i < arr.length; i++) {
 			arr[i] = i + 3; 
 		}
-		System.out.println(x + "\n" + str + "\n" + Arrays.toString(arr));
 	}
 	
 	
