@@ -20,6 +20,12 @@ public class Magpie2 {
 				|| statement.indexOf("sister") >= 0
 				|| statement.indexOf("brother") >= 0) {
 			response = "Tell me more about your family.";
+		} else if(statement.indexOf("Dreyer") >= 0) {
+			response = "She sounds like a good teacher.";
+		} else if(statement.indexOf("jokes") >= 0) {
+			response = "I'm not a humorous person.";
+		} else if(statement.indexOf("study") >= 0) {
+			response = "Study is the easiest thing in the world.";
 		} else {
 			response = getRandomResponse();
 		}
@@ -44,7 +50,7 @@ public class Magpie2 {
 			response = "Do you really think so?";
 		} else if (whichResponse == 3) {
 			response = "You don't say.";
-		}
+		} 
 
 		return response;
 	}
