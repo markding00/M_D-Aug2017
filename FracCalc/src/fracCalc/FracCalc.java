@@ -1,10 +1,20 @@
 package fracCalc;
+import java.util.Scanner;
 
+/*
+ * Mark Ding
+ * Ms.Dreyer
+ * APCS1 11/07/2017
+ */
 public class FracCalc {
 
     public static void main(String[] args) 
     {
         // TODO: Read the input from the user and call produceAnswer with an equation
+    	Scanner userInput = new Scanner(System.in);
+    	String formula = userInput.nextLine();
+    	String answer = produceAnswer(formula);
+    	System.out.println(answer);
 
     }
     
@@ -19,8 +29,9 @@ public class FracCalc {
     public static String produceAnswer(String input)
     { 
         // TODO: Implement this function to produce the solution to the input
+    	String[] operand = input.split(" ");
         
-        return "";
+        return operand[2];
     }
 
     // TODO: Fill in the space below with any helper methods that you think you will need
