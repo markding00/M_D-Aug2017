@@ -30,8 +30,6 @@ public class FracCalc {
         String answer;
         
         
-        
-        answer = "whole:" + wholeNum + " numerator:" + numerator + " denominator:" + denominator;
         return answer;
     }
 
