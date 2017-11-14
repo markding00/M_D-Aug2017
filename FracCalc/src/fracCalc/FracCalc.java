@@ -28,6 +28,9 @@ public class FracCalc {
        
     		String[] operand = input.split(" ");
         String answer;
+        String operand1 = toImproperFrac(operand[0]);
+        String operand2 = toImproperFrac(operand[2]);
+        String operator = operand[1];
         
         
         return answer;
@@ -54,10 +57,12 @@ public class FracCalc {
     			numerator = "0";
     			denominator = "1";
 		}
-		int numerator = wholeNum * bottom + top;
-		int denominator = bottom;
+		int whole = Integer.parseInt(wholeNum.trim());
+		int numer = Integer.parseInt(numerator.trim());
+		int deno = Integer.parseInt(denominator.trim());
+		int top = whole * deno + numer;
 		String improp;
-		improp = numerator + "/" + denominator;
+		improp = top + "/" + deno;
 		return improp;
 	}
 	
