@@ -25,31 +25,54 @@ public class FracCalc {
     
     public static String produceAnswer(String input)
     { 
-        // TODO: Implement this function to produce the solution to the input
-    	String[] operand = input.split(" ");
+       
+    		String[] operand = input.split(" ");
         String answer;
-        String wholeNum = "", numerator = "", denominator = "";
-        int underScore = operand[2].indexOf("_");
-     	int slash = operand[2].indexOf("/");
         
-        if(operand[2].indexOf("_") >= 0) {
-        	wholeNum = operand[2].substring(0, underScore);
-        	numerator = operand[2].substring(underScore + 1, slash);
-        	denominator = operand[2].substring(slash + 1, operand[2].length());
-        } else if (operand[2].indexOf("_") < 0 && operand[2].indexOf("/") >= 0) {
-        	wholeNum = "0";
-        	numerator = operand[2].substring(0, slash);
-        	denominator = operand[2].substring(slash + 1, operand[2].length());
-        } else if (operand[2].indexOf("_") < 0 && operand[2].indexOf("/") < 0) {
-        	wholeNum = operand[2];
-        	numerator = "0";
-        	denominator = "1";
-        }
+        
         
         answer = "whole:" + wholeNum + " numerator:" + numerator + " denominator:" + denominator;
         return answer;
     }
 
-    // TODO: Fill in the space below with any helper methods that you think you will need
+    /*This method takes 3 integers and return
+	*a string where it shows the proper fraction. 
+	*/ 
+	public static String toImproperFrac(String operand) {
+		String wholeNum = "", numerator = "", denominator = "";
+		int underScore = operand.indexOf("_");
+     	int slash = operand.indexOf("/");
+        
+		if(operand.indexOf("_") >= 0) {
+    			wholeNum = operand.substring(0, underScore);
+    			numerator = operand.substring(underScore + 1, slash);
+    			denominator = operand.substring(slash + 1, operand.length());
+		} else if (operand.indexOf("_") < 0 && operand.indexOf("/") >= 0) {
+    			wholeNum = "0";
+    			numerator = operand.substring(0, slash);
+    			denominator = operand.substring(slash + 1, operand.length());
+		} else if (operand.indexOf("_") < 0 && operand.indexOf("/") < 0) {
+			wholeNum = operand;
+    			numerator = "0";
+    			denominator = "1";
+		}
+		int numerator = wholeNum * bottom + top;
+		int denominator = bottom;
+		String improp;
+		improp = numerator + "/" + denominator;
+		return improp;
+	}
+	
+	/*
+	 * this method takes two integers from a fraction and return a string where it 
+	 * shows an improper fraction. 
+	 */
+	public static String toMixedNum(int top, int bottom){
+		int wholeNumber = top / bottom;
+		int numerator = top - wholeNumber * bottom;
+		int denominator = bottom;
+		String mixedNum = wholeNumber + "_" + numerator + "/" + denominator; 
+		return mixedNum;
+	}
     
 }
