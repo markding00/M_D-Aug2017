@@ -1,4 +1,4 @@
-package fracCalc;
+  package fracCalc;
 
 import org.junit.Test;
 

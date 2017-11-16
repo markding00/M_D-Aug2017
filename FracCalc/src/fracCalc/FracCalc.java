@@ -45,9 +45,9 @@ public class FracCalc {
         } else if(operator.equals("-")) {
         	answer = addOrSubtract(numer1, numer2, deno1, deno2, operator);
         } else if(operator.equals("*")) {
-        	answer = multiply(numer1, numer2, deno1, deno2);
+        	answer = multiplyOrDivide(numer1, numer2, deno1, deno2, operator);
         } else if(operator.equals("/")) {
-        	answer = divide(numer1, numer2, deno1, deno2);
+        	answer = multiplyOrDivide(numer1, numer2, deno1, deno2, operator);
         }
         return answer;
     }
@@ -61,6 +61,20 @@ public class FracCalc {
     		numerator = numer1*deno2 - numer2*deno1;
     	}
     	int denominator = deno1 * deno2;
+    	answer = reduceAnswer(numerator, denominator);
+    	return answer;
+    }
+    
+    public static String multiplyOrDivide(int numer1, int numer2, int deno1, int deno2, String operator) {
+    	String answer;
+    	int numerator = 0, denominator = 0;
+    	if(operator.equals("*")) {
+    		numerator = numer1 * numer2;
+    		denominator = deno1 * deno2;
+    	}else if(operator.equals("/")) {
+    		numerator = numer1 * deno2;
+    		denominator = deno1 * numer2;
+    	}
     	answer = reduceAnswer(numerator, denominator);
     	return answer;
     }
