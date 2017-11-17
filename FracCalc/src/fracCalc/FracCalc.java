@@ -61,7 +61,7 @@ public class FracCalc {
     		numerator = numer1*deno2 - numer2*deno1;
     	}
     	int denominator = deno1 * deno2;
-    	answer = reduceAnswer(numerator, denominator);
+    	answer = numerator + "/" + denominator;
     	return answer;
     }
     
@@ -75,7 +75,7 @@ public class FracCalc {
     		numerator = numer1 * deno2;
     		denominator = deno1 * numer2;
     	}
-    	answer = reduceAnswer(numerator, denominator);
+    	answer = numerator + "/" + denominator;
     	return answer;
     }
     
@@ -104,7 +104,15 @@ public class FracCalc {
 		int whole = Integer.parseInt(wholeNum.trim());
 		int numer = Integer.parseInt(numerator.trim());
 		int deno = Integer.parseInt(denominator.trim());
-		int top = whole * deno + numer;
+		int top;
+		if(operand.substring(0,1).equals("-") && whole != 0) {
+			top = whole * deno - numer;
+		}else if (operand.substring(0,1).equals("-") && whole == 0){
+			top = numer;
+		}else {
+			top = whole * deno + numer;
+		}
+		
 		String improp;
 		improp = top + "/" + deno;
 		return improp;
@@ -122,55 +130,4 @@ public class FracCalc {
 		return mixedNum;
 	}
 	
-	public static String reduceAnswer(int numerator, int denominator) {
-		String answer;
-		int gcf = gcf(numerator, denominator);
-		numerator = numerator / gcf;
-		denominator = denominator / gcf;
-		answer = toMixedNum(numerator, denominator);
-		return answer;
-	}
-	
-	/*
-	 * This method takes 2 integers and return their greatest common factor. 
-	 */
-	public static int gcf(int num1, int num2) {
-		int originalNum1 = num1;
-		int originalNum2 = num2;
-		while(num2!=0){
-			if(isDivisibleBy(originalNum1, originalNum2) == true){
-				return (int) absValue(num1 / num2);
-			}else{
-				int num3 = num1;
-				num1 = num2;
-				num2 = num3 % num2;
-		    }
-		}
-		return (int) absValue(num1);
-	}
-	
-
-	//This method takes 2 integers and return a boolean that determines whether or not 
-	//one integer is evenly divisible by another.
-	public static boolean isDivisibleBy(int num1, int num2) {
-		if (num2 == 0) {
-			throw new IllegalArgumentException("The denominator cannot be 0");
-		}
-		if (num1 % num2 == 0) {
-			return true;
-		}else {
-			return false;
-		}
-	}
-	
-	// This method takes a double and return its absolute value
-		public static double absValue(double num) {
-			if(num > 0) {
-				return num;
-			}else if(num == 0) {
-				return 0;
-			}else {
-				return -1 * num;
-			}
-		}
 }
