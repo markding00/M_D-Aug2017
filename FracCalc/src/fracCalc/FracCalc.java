@@ -28,6 +28,7 @@ public class FracCalc {
 
 		String[] operand = input.split(" ");
 		String answer = "";
+		
 		String operand1 = toImproperFrac(operand[0]);
 		String operand2 = toImproperFrac(operand[2]);
 		String operator = operand[1];
@@ -73,6 +74,9 @@ public class FracCalc {
 		String answer;
 		int numerator = 0, denominator = 0;
 		if(operator.equals("*")) {
+			if(numer1 == 0 || numer2 == 0) {
+				answer = "0";
+			}
 			numerator = numer1 * numer2;
 			denominator = deno1 * deno2;
 		}else if(operator.equals("/")) {
