@@ -4,7 +4,7 @@ import java.util.Scanner;
  * Mark Ding
  * Ms.Dreyer
  * APCS1 11/07/2017
- * This class calculate two fractions from 
+ * This class calculate two fractions from user's input. 
  */
 public class FracCalc {
 	public static void main (String[] args){
