@@ -4,6 +4,7 @@ import java.util.Scanner;
  * Mark Ding
  * Ms.Dreyer
  * APCS1 11/07/2017
+ * This class calculate two fractions from 
  */
 public class FracCalc {
 	public static void main (String[] args){
@@ -20,15 +21,13 @@ public class FracCalc {
 	}
 
 	/*produceAnswer method: Separate the first operand, operator and the second operand
-Call parseOperands  
-Method
-Call toImproperFrac
-Determine the operator of the calculation to Call AddFrac or
-Call SubtractFrac or
-Call MultipleFrac or
-Call DivideFrac
-In this method, it also calls toMixedFrac to reduce answers*/
-
+	Call parseOperands Method
+	Call toImproperFrac
+	Determine the operator of the calculation to Call AddFrac or
+	Call SubtractFrac or
+	Call MultipleFrac or
+	Call DivideFrac
+	In this method, it also calls toMixedFrac to reduce answers*/
 
 	public static String produceAnswer(String Input){
 		String[] splitBySpaces = Input.split(" ");
@@ -54,8 +53,8 @@ In this method, it also calls toMixedFrac to reduce answers*/
 	}
 
 	/*Take in an operand 
-Split the operand into a whole number, a numerator and a denominator
-Store them in an int array */
+	Split the operand into a whole number, a numerator and a denominator
+	Store them in an int array */
 	public static int[] parseOperand(String operand){
 		String[] partsOfOperand=new String [3];
 		if (operand.indexOf("_")<0 && operand.indexOf("/")<0) {
@@ -83,7 +82,7 @@ Store them in an int array */
 
 
 	/*Take in an operand
- Convert a mixed fraction into an improper fraction*/
+ 	Convert a mixed fraction into an improper fraction*/
 	public static int[] toImproperFrac (int[] operand){
 		int[] improperFrac=new int [2];
 		if(operand[0]<0){
@@ -97,10 +96,10 @@ Store them in an int array */
 		return improperFrac;
 	}
 	/*Call gcf method
-Check if the denominator is negative
-Check if the numerator is divisible by the denominator
-Check whether the denominator is 1 or-1, or 0.
-Return the whole number, the numerator and the denominator as one string
+	Check if the denominator is negative
+	Check if the numerator is divisible by the denominator
+	Check whether the denominator is 1 or-1, or 0.
+	Return the whole number, the numerator and the denominator as one string
 	 */
 	public static String toMixedFrac(int[] answer){
 
@@ -156,8 +155,8 @@ Return the whole number, the numerator and the denominator as one string
 	}
 
 	/*Find the common denominator
-Then multiply the numerator with each other’s denominator 
-Finally Add up the numerator */		
+	Then multiply the numerator with each other’s denominator 
+	Finally Add up the numerator */		
 	public static int[] addFrac(int[] firstOperand, int[] secondOperand){ 
 		int[] answer =new int[2];
 		int firstNumerator = firstOperand[0];
@@ -209,13 +208,13 @@ Then multiply (I don’t use multiplyFrac)*/
 		return answer;
 	}
 	// This method takes a double and return its absolute value
-		public static double absValue(double num) {
-			if(num > 0) {
-				return num;
-			}else if(num == 0) {
-				return 0;
-			}else {
-				return -1 * num;
-			}
+	public static double absValue(double num) {
+		if(num > 0) {
+			return num;
+		}else if(num == 0) {
+			return 0;
+		}else {
+			return -1 * num;
 		}
+	}
 }
