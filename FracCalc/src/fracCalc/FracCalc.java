@@ -1,194 +1,221 @@
 package fracCalc;
 import java.util.Scanner;
-
 /*
  * Mark Ding
  * Ms.Dreyer
  * APCS1 11/07/2017
  */
 public class FracCalc {
-
-	public static void main(String[] args) 
-	{
-		// TODO: Read the input from the user and call produceAnswer with an equation
-		Scanner userInput = new Scanner(System.in);
-		boolean done = false;
-		while(!done) {
-			String formula = userInput.nextLine();
-			String answer = produceAnswer(formula);
+	public static void main (String[] args){
+		System.out.println("Please put in an expression");
+		Scanner input  = new Scanner(System.in);
+		String userInput = input.nextLine();
+		while (userInput.equals("quit")!= true){
+			String answer = produceAnswer(userInput);
 			System.out.println(answer);
-			if(formula.equals("quit")) {
-				done = true;
-			}
+			System.out.println("Next One: ");
+			userInput = input.nextLine();
 		}
+		System.out.println("Please restart!!!");
 	}
 
-	public static String produceAnswer(String input)
-	{ 
-
-		String[] operand = input.split(" ");
-		String answer = "";
-		
-		String operand1 = toImproperFrac(operand[0]);
-		String operand2 = toImproperFrac(operand[2]);
-		String operator = operand[1];
-
-		int slash1 = operand1.indexOf("/");
-		int slash2 = operand2.indexOf("/");
-		int numer1 = Integer.parseInt(operand1.substring(0 , slash1).trim());
-		int numer2 = Integer.parseInt(operand2.substring(0 , slash2).trim());
-		int deno1 = Integer.parseInt(operand1.substring(slash1+1, operand1.length()).trim());
-		int deno2 = Integer.parseInt(operand2.substring(slash2+1, operand2.length()).trim());
+	/*produceAnswer method: Separate the first operand, operator and the second operand
+Call parseOperands  
+Method
+Call toImproperFrac
+Determine the operator of the calculation to Call AddFrac or
+Call SubtractFrac or
+Call MultipleFrac or
+Call DivideFrac
+In this method, it also calls toMixedFrac to reduce answers*/
 
 
-		if(operator.equals("+")) {
-			answer = addOrSubtract(numer1, numer2, deno1, deno2, operator);
-		} else if(operator.equals("-")) {
-			answer = addOrSubtract(numer1, numer2, deno1, deno2, operator);
-		} else if(operator.equals("*")) {
-			answer = multiplyOrDivide(numer1, numer2, deno1, deno2, operator);
-		} else if(operator.equals("/")) {
-			answer = multiplyOrDivide(numer1, numer2, deno1, deno2, operator);
-		}
-		int slash = answer.indexOf("/");
-		int numer = Integer.parseInt(answer.substring(0, slash));
-		int deno = Integer.parseInt(answer.substring(slash + 1, answer.length()));
-		answer = reduceAnswer(numer, deno);
-		return answer;
-	}
-
-	public static String addOrSubtract(int numer1, int numer2, int deno1, int deno2, String operator) {
+	public static String produceAnswer(String Input){
+		String[] splitBySpaces = Input.split(" ");
+		String operator= splitBySpaces[1];
+		int[] firstOperand= parseOperand(splitBySpaces[0]);//store the first  operand
+		int[] secondOperand= parseOperand(splitBySpaces[2]);//store the second operand
+		int[] firstImproperOperand=toImproperFrac(firstOperand);//convert the first operand to an improper fraction
+		int[] secondImproperOperand=toImproperFrac(secondOperand);//convert the second operand to an improper fraction
 		String answer;
-		int numerator = 0;
-		if(operator.equals("+")) {
-			numerator = numer1*deno2 + numer2*deno1;
-		}else if (operator.equals("-")) {
-			numerator = numer1*deno2 - numer2*deno1;
+		if ( operator.equals("+") ){
+			answer = toMixedFrac(addFrac(firstImproperOperand,secondImproperOperand));
+		}else if(operator.equals("-")){
+			answer = toMixedFrac(subtractFrac(firstImproperOperand,secondImproperOperand));
+		}else if(operator.equals("*")){
+			answer = toMixedFrac(multiplyFrac(firstImproperOperand,secondImproperOperand));
+		}else if(operator.equals("/")){
+			answer = toMixedFrac(divideFrac(firstImproperOperand,secondImproperOperand));	
+		}else{
+			answer = "Please check your expression";
 		}
-		int denominator = deno1 * deno2;
-		answer = numerator + "/" + denominator;
+
 		return answer;
 	}
 
-	public static String multiplyOrDivide(int numer1, int numer2, int deno1, int deno2, String operator) {
-		String answer;
-		int numerator = 0, denominator = 0;
-		if(operator.equals("*")) {
-			if(numer1 == 0 || numer2 == 0) {
-				answer = "0";
-			}
-			numerator = numer1 * numer2;
-			denominator = deno1 * deno2;
-		}else if(operator.equals("/")) {
-			numerator = numer1 * deno2;
-			denominator = deno1 * numer2;
+	/*Take in an operand 
+Split the operand into a whole number, a numerator and a denominator
+Store them in an int array */
+	public static int[] parseOperand(String operand){
+		String[] partsOfOperand=new String [3];
+		if (operand.indexOf("_")<0 && operand.indexOf("/")<0) {
+			//integers
+			partsOfOperand[0] = operand;
+			partsOfOperand[1] = "0";
+			partsOfOperand[2] = "1";
+		}else if(operand.indexOf("_")<0 && operand.indexOf("/")>0 ){
+			//improper fraction
+			partsOfOperand[0] = "0";
+			partsOfOperand[1] = operand.substring(0, operand.indexOf("/"));
+			partsOfOperand[2] = operand.substring(operand.indexOf("/")+1);
+		}else if(operand.indexOf("_")>0 && operand.indexOf("/")>0){
+			//Mixed fraction
+			partsOfOperand[0] = operand.substring(0,operand.indexOf("_"));
+			partsOfOperand[1]=operand.substring(operand.indexOf("_")+1,operand.indexOf("/"));
+			partsOfOperand[2] = operand.substring(operand.indexOf("/")+1);
 		}
-		answer = numerator + "/" + denominator;
-		return answer;
+		int[] parseOfOperand=new int [3];
+		for(int i = 0; i < 3; i++){
+			parseOfOperand[i]= Integer.parseInt(partsOfOperand[i]);
+		}
+		return parseOfOperand;
 	}
 
 
-	/*This method takes 3 integers and return
-	 *a string where it shows the proper fraction. 
-	 */ 
-	public static String toImproperFrac(String operand) {
-		String wholeNum = "", numerator = "", denominator = "";
-		int underScore = operand.indexOf("_");
-		int slash = operand.indexOf("/");
-
-		if(operand.indexOf("_") >= 0) {
-			wholeNum = operand.substring(0, underScore);
-			numerator = operand.substring(underScore + 1, slash);
-			denominator = operand.substring(slash + 1, operand.length());
-		} else if (operand.indexOf("_") < 0 && operand.indexOf("/") >= 0) {
-			wholeNum = "0";
-			numerator = operand.substring(0, slash);
-			denominator = operand.substring(slash + 1, operand.length());
-		} else if (operand.indexOf("_") < 0 && operand.indexOf("/") < 0) {
-			wholeNum = operand;
-			numerator = "0";
-			denominator = "1";
+	/*Take in an operand
+ Convert a mixed fraction into an improper fraction*/
+	public static int[] toImproperFrac (int[] operand){
+		int[] improperFrac=new int [2];
+		if(operand[0]<0){
+			//negative fraction
+			improperFrac[0] = (operand[0]*operand[2])+(operand[1]*-1)	;
+			improperFrac[1] = operand[2];
+		}else{
+			improperFrac[0] =((operand[0]*operand[2])+operand[1]);
+			improperFrac[1]=operand[2];
 		}
-		int whole = Integer.parseInt(wholeNum.trim());
-		int numer = Integer.parseInt(numerator.trim());
-		int deno = Integer.parseInt(denominator.trim());
-		int top;
-		if(operand.substring(0,1).equals("-") && whole != 0) {
-			top = whole * deno - numer;
-		}else if (operand.substring(0,1).equals("-") && whole == 0){
-			top = numer;
-		}else {
-			top = whole * deno + numer;
-		}
-
-		String improp;
-		improp = top + "/" + deno;
-		return improp;
+		return improperFrac;
 	}
-
-	/*
-	 * this method takes two integers from a fraction and return a string where it 
-	 * shows an improper fraction. 
+	/*Call gcf method
+Check if the denominator is negative
+Check if the numerator is divisible by the denominator
+Check whether the denominator is 1 or-1, or 0.
+Return the whole number, the numerator and the denominator as one string
 	 */
-	public static String toMixedNum(int top, int bottom){
-		int wholeNumber = top / bottom;
-		int numerator = top - wholeNumber * bottom;
-		int denominator = bottom;
-		String mixedNum = wholeNumber + "_" + numerator + "/" + denominator; 
-		return mixedNum;
-	}
+	public static String toMixedFrac(int[] answer){
 
-	public static String reduceAnswer(int numerator, int denominator) {
-		String answer;
-		int gcf = gcf(numerator, denominator);
-		numerator = numerator / gcf;
-		denominator = denominator / gcf;
-		answer = toMixedNum(numerator, denominator);
-		return answer;
-	}
-
-	/*
-	 * This method takes 2 integers and return their greatest common factor. 
-	 */
-	public static int gcf(int num1, int num2) {
-		int originalNum1 = num1;
-		int originalNum2 = num2;
-		while(num2!=0){
-			if(isDivisibleBy(originalNum1, originalNum2) == true){
-				return (int) absValue(num1 / num2);
+		String reducedAnswer;
+		int gcf = gcf(answer[0],answer[1]);
+		if(gcf!=1){
+			answer[0] = answer[0]/gcf;//answer[0] is the numerator of the answer
+			answer[1] = answer[1]/gcf;//answer[1] is the denominator of the answer
+		}
+		if(answer[1]<0){
+			answer[1]=(int) absValue(answer[1]);
+			answer[0]=answer[0]*-1;
+		}
+		int coefficient = answer[0]/answer[1];
+		int remainder = answer[0] % answer[1];
+		if (coefficient<0){
+			if(remainder==0 && answer[1]==1){
+				reducedAnswer = (Integer.toString(coefficient));
+			}else if(remainder==0 && answer[1]==-1){
+				reducedAnswer = (Integer.toString(coefficient));
 			}else{
-				int num3 = num1;
-				num1 = num2;
-				num2 = num3 % num2;
+				reducedAnswer = coefficient + "_" + absValue(remainder) + "/" + absValue(answer[1]);
+			}
+		}else if(remainder==0){
+			reducedAnswer = coefficient+"";		
+		}else if(coefficient==0){			
+			if(remainder<0 && answer[1]<0){
+				int newNum = remainder*-1;
+				int newDenom = answer[1]*-1;
+				reducedAnswer = newNum + "/" + newDenom;
+			}else{
+				reducedAnswer = remainder + "/" + answer[1];
+			}
+		}else if(remainder<0 && answer[1]<0){
+			int numerator = remainder*-1;
+			int denominator = answer[1]*-1;
+			reducedAnswer = coefficient + "_" + numerator + "/" + denominator;
+		}else{
+			reducedAnswer = coefficient + "_" + remainder + "/" + answer[1];
+		}
+
+		return reducedAnswer;
+	}	
+
+	//A method that finds the greatest common factor of two integers
+	public static int gcf(int a, int b){
+		while(a!=0 && b!=0){
+			int c = b;
+			b = a%b;
+			a = c;
+		}
+		return (int) absValue(a+b);
+	}
+
+	/*Find the common denominator
+Then multiply the numerator with each other’s denominator 
+Finally Add up the numerator */		
+	public static int[] addFrac(int[] firstOperand, int[] secondOperand){ 
+		int[] answer =new int[2];
+		int firstNumerator = firstOperand[0];
+		int firstDenominator = firstOperand[1];
+		int secondNumerator = secondOperand[0];
+		int secondDenominator = secondOperand[1];
+		answer[0] = secondDenominator * firstNumerator + firstDenominator * secondNumerator;
+		answer[1] = firstDenominator * secondDenominator;
+		return answer;
+	}
+
+	/*Find the common denominator
+Then multiply the numerator with each other’s denominator 
+Finally subtract one numerator from another one
+	 */
+	public static int[] subtractFrac(int[] firstOperand, int[] secondOperand){ 
+		int[] answer =new int[2];
+		int firstNumerator = firstOperand[0];
+		int firstDenominator = firstOperand[1];
+		int secondNumerator = secondOperand[0];
+		int secondDenominator = secondOperand[1];
+		answer[0] = secondDenominator * firstNumerator - firstDenominator * secondNumerator;
+		answer[1] = firstDenominator * secondDenominator;
+		return answer;
+	}
+
+	/*Multiply both numerators and denominators*/
+	public static int[] multiplyFrac(int[] firstOperand, int[] secondOperand){ 
+		int[] answer =new int[2];
+		int firstNumerator = firstOperand[0];
+		int firstDenominator = firstOperand[1];
+		int secondNumerator = secondOperand[0];
+		int secondDenominator = secondOperand[1];
+		answer[0] = firstNumerator * secondNumerator;
+		answer[1] = firstDenominator * secondDenominator;
+		return answer;
+	}
+
+	/*Reverse the second operand numerator and denominator
+Then multiply (I don’t use multiplyFrac)*/
+	public static int[] divideFrac(int[] firstOperand, int[] secondOperand){ 
+		int[] answer =new int[2];
+		int firstNumerator = firstOperand[0];
+		int firstDenominator = firstOperand[1];
+		int secondNumerator = secondOperand[0];
+		int secondDenominator = secondOperand[1];
+		answer[0] =firstNumerator * secondDenominator;
+		answer[1] = firstDenominator * secondNumerator;
+		return answer;
+	}
+	// This method takes a double and return its absolute value
+		public static double absValue(double num) {
+			if(num > 0) {
+				return num;
+			}else if(num == 0) {
+				return 0;
+			}else {
+				return -1 * num;
 			}
 		}
-		return (int) absValue(num1);
-	}
-
-
-	//This method takes 2 integers and return a boolean that determines whether or not 
-	//one integer is evenly divisible by another.
-	public static boolean isDivisibleBy(int num1, int num2) {
-		if (num2 == 0) {
-			throw new IllegalArgumentException("The denominator cannot be 0");
-		}
-		if (num1 % num2 == 0) {
-			return true;
-		}else {
-			return false;
-		}
-	}
-
-	// This method takes a double and return its absolute value
-	public static double absValue(double num) {
-		if(num > 0) {
-			return num;
-		}else if(num == 0) {
-			return 0;
-		}else {
-			return -1 * num;
-		}
-	}
-
-
 }
