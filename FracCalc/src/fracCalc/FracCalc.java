@@ -7,214 +7,252 @@ import java.util.Scanner;
  * This class calculate two fractions from user's input. 
  */
 public class FracCalc {
-	public static void main (String[] args){
-		System.out.println("Please put in an expression");
-		Scanner input  = new Scanner(System.in);
-		String userInput = input.nextLine();
-		while (userInput.equals("quit")!= true){
-			String answer = produceAnswer(userInput);
-			System.out.println(answer);
-			System.out.println("Next One: ");
-			userInput = input.nextLine();
-		}
-		System.out.println("Please restart!!!");
-	}
 
-	/*produceAnswer method: Separate the first operand, operator and the second operand
-	Call parseOperands Method
-	Call toImproperFrac
-	Determine the operator of the calculation to Call AddFrac or
-	Call SubtractFrac or
-	Call MultipleFrac or
-	Call DivideFrac
-	In this method, it also calls toMixedFrac to reduce answers*/
-
-	public static String produceAnswer(String Input){
-		String[] splitBySpaces = Input.split(" ");
-		String operator= splitBySpaces[1];
-		int[] firstOperand= parseOperand(splitBySpaces[0]);//store the first  operand
-		int[] secondOperand= parseOperand(splitBySpaces[2]);//store the second operand
-		int[] firstImproperOperand=toImproperFrac(firstOperand);//convert the first operand to an improper fraction
-		int[] secondImproperOperand=toImproperFrac(secondOperand);//convert the second operand to an improper fraction
-		String answer;
-		if ( operator.equals("+") ){
-			answer = toMixedFrac(addFrac(firstImproperOperand,secondImproperOperand));
-		}else if(operator.equals("-")){
-			answer = toMixedFrac(subtractFrac(firstImproperOperand,secondImproperOperand));
-		}else if(operator.equals("*")){
-			answer = toMixedFrac(multiplyFrac(firstImproperOperand,secondImproperOperand));
-		}else if(operator.equals("/")){
-			answer = toMixedFrac(divideFrac(firstImproperOperand,secondImproperOperand));	
-		}else{
-			answer = "Please check your expression";
-		}
-
-		return answer;
-	}
-
-	/*Take in an operand 
-	Split the operand into a whole number, a numerator and a denominator
-	Store them in an int array */
-	public static int[] parseOperand(String operand){
-		String[] partsOfOperand=new String [3];
-		if (operand.indexOf("_")<0 && operand.indexOf("/")<0) {
-			//integers
-			partsOfOperand[0] = operand;
-			partsOfOperand[1] = "0";
-			partsOfOperand[2] = "1";
-		}else if(operand.indexOf("_")<0 && operand.indexOf("/")>0 ){
-			//improper fraction
-			partsOfOperand[0] = "0";
-			partsOfOperand[1] = operand.substring(0, operand.indexOf("/"));
-			partsOfOperand[2] = operand.substring(operand.indexOf("/")+1);
-		}else if(operand.indexOf("_")>0 && operand.indexOf("/")>0){
-			//Mixed fraction
-			partsOfOperand[0] = operand.substring(0,operand.indexOf("_"));
-			partsOfOperand[1]=operand.substring(operand.indexOf("_")+1,operand.indexOf("/"));
-			partsOfOperand[2] = operand.substring(operand.indexOf("/")+1);
-		}
-		int[] parseOfOperand=new int [3];
-		for(int i = 0; i < 3; i++){
-			parseOfOperand[i]= Integer.parseInt(partsOfOperand[i]);
-		}
-		return parseOfOperand;
-	}
-
-
-	/*Take in an operand
- 	Convert a mixed fraction into an improper fraction*/
-	public static int[] toImproperFrac (int[] operand){
-		int[] improperFrac=new int [2];
-		if(operand[0]<0){
-			//negative fraction
-			improperFrac[0] = (operand[0]*operand[2])+(operand[1]*-1)	;
-			improperFrac[1] = operand[2];
-		}else{
-			improperFrac[0] =((operand[0]*operand[2])+operand[1]);
-			improperFrac[1]=operand[2];
-		}
-		return improperFrac;
-	}
-	/*Call gcf method
-	Check if the denominator is negative
-	Check if the numerator is divisible by the denominator
-	Check whether the denominator is 1 or-1, or 0.
-	Return the whole number, the numerator and the denominator as one string
-	 */
-	public static String toMixedFrac(int[] answer){
-
-		String reducedAnswer;
-		int gcf = gcf(answer[0],answer[1]);
-		if(gcf!=1){
-			answer[0] = answer[0]/gcf;//answer[0] is the numerator of the answer
-			answer[1] = answer[1]/gcf;//answer[1] is the denominator of the answer
-		}
-		if(answer[1]<0){
-			answer[1]=(int) absValue(answer[1]);
-			answer[0]=answer[0]*-1;
-		}
-		int coefficient = answer[0]/answer[1];
-		int remainder = answer[0] % answer[1];
-		if (coefficient<0){
-			if(remainder==0 && answer[1]==1){
-				reducedAnswer = (Integer.toString(coefficient));
-			}else if(remainder==0 && answer[1]==-1){
-				reducedAnswer = (Integer.toString(coefficient));
-			}else{
-				reducedAnswer = coefficient + "_" + absValue(remainder) + "/" + absValue(answer[1]);
+	public static void main(String[] args) {
+		// TODO: Read the input from the user and call produceAnswer with an equation
+		boolean finish = false;
+		Scanner input = new Scanner(System.in);
+		while(finish==false) {
+			System.out.println("Enter your fraction: "); // This asks the user to enter a fraction.
+			String userExpr = input.nextLine(); //This calls the line where the user can enter something.
+			if(userExpr.equals("quit")) {
+				System.out.println("See you later!");//This is a fun statement!!, it is not neccessary though.
+				finish=true;
+			} else {
+				System.out.println(produceAnswer(userExpr));
 			}
-		}else if(remainder==0){
-			reducedAnswer = coefficient+"";		
-		}else if(coefficient==0){			
-			if(remainder<0 && answer[1]<0){
-				int newNum = remainder*-1;
-				int newDenom = answer[1]*-1;
-				reducedAnswer = newNum + "/" + newDenom;
-			}else{
-				reducedAnswer = remainder + "/" + answer[1];
-			}
-		}else if(remainder<0 && answer[1]<0){
-			int numerator = remainder*-1;
-			int denominator = answer[1]*-1;
-			reducedAnswer = coefficient + "_" + numerator + "/" + denominator;
-		}else{
-			reducedAnswer = coefficient + "_" + remainder + "/" + answer[1];
 		}
-
-		return reducedAnswer;
-	}	
-
-	//A method that finds the greatest common factor of two integers
-	public static int gcf(int a, int b){
-		while(a!=0 && b!=0){
-			int c = b;
-			b = a%b;
-			a = c;
-		}
-		return (int) absValue(a+b);
 	}
 
-	/*Find the common denominator
-	Then multiply the numerator with each other’s denominator 
-	Finally Add up the numerator */		
-	public static int[] addFrac(int[] firstOperand, int[] secondOperand){ 
-		int[] answer =new int[2];
-		int firstNumerator = firstOperand[0];
-		int firstDenominator = firstOperand[1];
-		int secondNumerator = secondOperand[0];
-		int secondDenominator = secondOperand[1];
-		answer[0] = secondDenominator * firstNumerator + firstDenominator * secondNumerator;
-		answer[1] = firstDenominator * secondDenominator;
-		return answer;
+	// ** IMPORTANT ** DO NOT DELETE THIS FUNCTION. This function will be used to
+	// test your code
+	// This function takes a String 'input' and produces the result
+	//
+	// input is a fraction string that needs to be evaluated. For your program, this
+	// will be the user input.
+	// e.g. input ==> "1/2 + 3/4"
+	//
+	// The function should return the result of the fraction after it has been
+	// calculated
+	// e.g. return ==> "1_1/4"
+	public static String produceAnswer(String input) {
+		
+		/*
+		 * This method splits the input by the spaces and goes through each element until it identifies one of the mathematical 
+		 * operations: addition,subtraction,division or multiplication. If it successfully finds one of these operations than the
+		 *  array will run through and it will keep doing this until it reaches the last element and ultimately will return the last element of the array.
+		 */
+		String[] splitUserInput = input.split(" ");
+		String result = null;
+		for(int i =0; i < splitUserInput.length; i++) {
+				if( splitUserInput[i].equals("+")||splitUserInput[i].equals("-")||splitUserInput[i].equals("*")||splitUserInput[i].equals("/")) {
+					if (splitUserInput[i].equals("+")) {
+						result=plusMinus(splitUserInput[i-1],splitUserInput[i+1],"+"); //This line of code calls the method of addOrSubtract to do addition.
+					}else if(splitUserInput[i].equals("*")) {
+						result = multiplyOrDivide(splitUserInput[i-1],splitUserInput[i+1],"*"); //This line of code calls the method multiplyOrDivideFrac to do multiplication.
+					}else if(splitUserInput[i].equals("-")) {
+						result=plusMinus(splitUserInput[i-1],splitUserInput[i+1],"-"); //This line of code calls the method of addOrSubtract to do subtraction.
+					}else {
+						result = multiplyOrDivide(splitUserInput[i-1],splitUserInput[i+1],"/"); //This line of code calls the method multiplyOrDivideFrac to do division.
+					}
+				if(i<splitUserInput.length) {
+					splitUserInput[i+1]=result;
+				} else {
+					splitUserInput[i]=result;
+				}
+				}
+		}
+		return splitUserInput[splitUserInput.length-1];
+		
 	}
-
-	/*Find the common denominator
-Then multiply the numerator with each other’s denominator 
-Finally subtract one numerator from another one
+    /*
+	 * This method parses the String input into an array to make it easier to compute the whole numbers, denominators and numerators.
+	 * This method will check if a "_" is present and if it is than the string will be put in a the format of a mixed number where the 
+	 * whole number is first followed by the numerator and denominator. If there isn't a "_" than it will look for the normal type of fraction.
+	 * It will finally return the desired result.
 	 */
-	public static int[] subtractFrac(int[] firstOperand, int[] secondOperand){ 
-		int[] answer =new int[2];
-		int firstNumerator = firstOperand[0];
-		int firstDenominator = firstOperand[1];
-		int secondNumerator = secondOperand[0];
-		int secondDenominator = secondOperand[1];
-		answer[0] = secondDenominator * firstNumerator - firstDenominator * secondNumerator;
-		answer[1] = firstDenominator * secondDenominator;
-		return answer;
+	public static String[] parseFraction(String input) {
+		String[] result = new String[3];
+		if (input.indexOf("_")>0) {
+			String[] wholeNumber= input.split("_"); //Sets the variable wholeNumber to the input split.
+			result[0]=wholeNumber[0];
+			String[] fraction = wholeNumber[1].split("/");
+			result[1]=fraction[0];
+			result[2]=fraction[1];
+		} else if(input.indexOf("_")<0){
+			if(input.indexOf("/")>0) {
+				result[0]="0";
+				String[] NonWholeFrac = input.split("/"); //Sets the variable NonWholeFrac to the input split.
+				result[1]=NonWholeFrac[0];
+				result[2]=NonWholeFrac[1];
+			} else {
+				result[0]=input;
+				result[1]="0";
+				result[2]="1";
+			}
+		}
+		return result; //returns the result.
 	}
-
-	/*Multiply both numerators and denominators*/
-	public static int[] multiplyFrac(int[] firstOperand, int[] secondOperand){ 
-		int[] answer =new int[2];
-		int firstNumerator = firstOperand[0];
-		int firstDenominator = firstOperand[1];
-		int secondNumerator = secondOperand[0];
-		int secondDenominator = secondOperand[1];
-		answer[0] = firstNumerator * secondNumerator;
-		answer[1] = firstDenominator * secondDenominator;
-		return answer;
+	
+	
+    /*
+	 * this method converts an integer array to the appropriate answer in the form of a string and will return the result.
+	 */
+	
+	public static String toString (int[] FractionInput) {
+		String result = "";
+		if (FractionInput.length==3) {
+			result= FractionInput[0]+"_"+FractionInput[1]+"/"+FractionInput[2];
+		}else if(FractionInput.length==2 && FractionInput[1]==1) {
+			result= FractionInput[0]+"";
+		}else if(FractionInput.length==2) {
+			result= FractionInput[0]+"/"+FractionInput[1];
+		}
+		if(result.equals("0/1")||(FractionInput.length==2 && FractionInput[0]==0)) { //This line of sets the result to 0 if the conditions are met.
+			result="0";
+		}else if(FractionInput.length==3 && FractionInput[1]==0) {
+			result=FractionInput[0]+"";
+		}else if(FractionInput.length==2 && FractionInput[0]==FractionInput[1]) {
+			result=1+"";
+		}
+		return result; //returns the result
 	}
-
-	/*Reverse the second operand numerator and denominator
-Then multiply (I don’t use multiplyFrac)*/
-	public static int[] divideFrac(int[] firstOperand, int[] secondOperand){ 
-		int[] answer =new int[2];
-		int firstNumerator = firstOperand[0];
-		int firstDenominator = firstOperand[1];
-		int secondNumerator = secondOperand[0];
-		int secondDenominator = secondOperand[1];
-		answer[0] =firstNumerator * secondDenominator;
-		answer[1] = firstDenominator * secondNumerator;
-		return answer;
+	
+	/*
+	 * This method will add or subtract a fraction courtesy of the bowtie method and will return the result as as string.
+	 */
+	public static String plusMinus(String fractionStr1, String fractionStr2, String operation) {
+		int[] fraction1= toImproper(StringtoInt(parseFraction(fractionStr1)));//Calls three different methods to account for the inputs in this method.
+		int[] fraction2= toImproper(StringtoInt(parseFraction(fractionStr2)));//Calls three different methods to account for the inputs in this method.
+		int[] result = new int[2];//Initializes a new array.
+		int Operation1=(fraction1[0]*fraction2[1]);
+		int Operation2=-(fraction2[0]*fraction1[1]);
+		if (operation.equals("-")) {
+			result[0]=Operation1+Operation2;
+		} else{
+			result[0]=Operation1-Operation2;
+		}
+		result[1]=(fraction1[1]*fraction2[1]);
+		return toString(reduce(result));//Returns the result as a string.
 	}
-	// This method takes a double and return its absolute value
-	public static double absValue(double num) {
-		if(num > 0) {
-			return num;
-		}else if(num == 0) {
-			return 0;
+	
+    /*
+	 * converts a type string array into a type int array and will return a result.
+	 */
+	
+	public static int[] StringtoInt(String[] input) {
+		int[] result = new int[input.length];
+		for (int i=0; i <input.length;i++) {//Using a for loop I can run through the entire array.
+			result[i]=Integer.parseInt(input[i]);
+		}
+		return result; //returns the result.
+	}
+	
+	
+	/*
+	 * Converts a Mixed Fraction into an Improper Fraction and will return the result.
+	*/
+	public static int[] toImproper(int[] inputFrac) {
+		int[] result = new int[2];
+		int a = inputFrac[0];//Initializes a new array.
+		int b = inputFrac[1];//Initializes a new array.
+		int c = inputFrac[2];//Initializes a new array.
+		int numerator =0;
+		if(a<0) {
+			a*=-1;
+			numerator = ((a * c) + b)*-1;
 		}else {
-			return -1 * num;
+			numerator = (a * c) + b;
+		}
+		result[0]=numerator;
+		result[1]=c;
+		return result; // returns the result.
+	}
+	
+	/* 
+     * This method determines whether or not one integer is evenly divisible by another.
+     */
+	public static boolean isDivisibleBy(int a, int b) {
+		if (b == 0) {
+			throw new IllegalArgumentException("Dividing by zero isn't allowed!");//This line of code displays an error to the user if they divide by 0.
+		}
+		if (a % b == 0) {
+			return true;// The statement will return true if that conditional is true.
+		} else {
+			return false;// Checks if inputs are divisible to each other
+		}
+	}
+	
+	
+	/*
+	 * This method finds the greatest common factor and will return it.
+	 */
+	public static int gcf(int number1, int number2) {
+		if(number2==0) {
+			return number1; //This line of code will return num1 if num2 is equal to the integer 0.
+		}
+		return gcf(number2,number1%number2); 
+	}
+	
+	/*
+	 * converts an improper fraction into a mixed fraction and returns the result.
+	 */
+	public static int[] toMixedNum(int[] FractionInput) {
+		int[] mixedFraction= new int[3]; //Initializes the array mixedFraction to a new array.
+		int Frac = FractionInput[0] % FractionInput[1];
+		int wholeNumber = FractionInput[0] / FractionInput[1];
+		if(Frac<0) {
+			Frac*=-1;
+		}
+		mixedFraction[0]=wholeNumber;
+		mixedFraction[1]=Frac;
+		mixedFraction[2]=FractionInput[1];
+		return mixedFraction; //This is return the result.
+	}
+	
+	
+	/*
+	 * The method multiplies or divides fractions and returns the result in a string form.
+	 */
+	
+	public static String multiplyOrDivide(String fractionStr1, String fractionStr2, String operation) {
+		int[] fraction1= toImproper(StringtoInt(parseFraction(fractionStr1)));
+		int[] fraction2= toImproper(StringtoInt(parseFraction(fractionStr2)));
+		int[] result = new int[2];
+		if (operation.equals("*")) {
+			result[0]=fraction1[0]*fraction2[0];
+			result[1]=fraction1[1]*fraction2[1];
+		}else if (operation.equals("/")){ // This line shows the symbol for divide so if it isn't a multiplication operation the operation will be division.
+			result[0]=fraction1[0]*fraction2[1];
+			result[1]=fraction1[1]*fraction2[0];
+		}
+		return toString(reduce(result));// This line of code returns the result in a string form.
+	}
+	
+	
+	
+	/*
+	 * This method finds the greatest common factor of an improper fraction and divides the fraction(numerator and denominator), 
+	 * it also converts the answer into a mixed number if needed. It will finally return the desired result.
+	 */
+	
+	public static int[] reduce(int[] FractionInput) {
+		int[] result = new int[2];
+		int divisor = gcf(FractionInput[0],FractionInput[1]);
+		result[0]=FractionInput[0]/divisor;
+		result[1]=FractionInput[1]/divisor;
+		int absNumber= 0;
+		if (result[0]<0) {
+			absNumber=result[0]*-1;//This line of code makes the number positive because if it is less than 0 multiplied by another negative = positive.
+		}
+		if (result[0]>result[1]||absNumber>result[1]) {
+			int[] resultMixed= toMixedNum(result);
+			if(resultMixed[2]<0) {
+				resultMixed[2]*=-1;
+			}
+			return resultMixed; // returns resultMixed.
+		}else {
+			return result; //Returns the result.
 		}
 	}
 }
