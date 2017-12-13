@@ -6,7 +6,7 @@ import java.util.Scanner;
  * APCS1 11/07/2017
  * This class calculate two fractions from user's input. 
  */
-public class FracCalc {
+public class FracCalcOld {
 
 	public static void main(String[] args) {
 		// TODO: Read the input from the user and call produceAnswer with an equation
