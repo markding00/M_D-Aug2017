@@ -1,39 +1,64 @@
+/*
+ * Mark Ding
+ * 12/15/17
+ * This class calculates fractions using objects.
+ */
 package fracCalc;
-
-import java.util.Scanner;
-
+import java.util.*;
 public class FracCalc {
 
-	public static void main(String[] args) {
-		boolean finish = false;
-		Scanner input = new Scanner(System.in);
-		while(finish==false) {
-			System.out.println("Enter your fraction: "); // This asks the user to enter a fraction.
-			String userExpr = input.nextLine(); //This calls the line where the user can enter something.
-			if(userExpr.equals("quit")) {
-				System.out.println("See you later!");//This is a fun statement!!, it is not neccessary though.
-				finish=true;
-			} else {
-				System.out.println(produceAnswer(userExpr));
-			}
-		}
-	}
-    
-    // ** IMPORTANT ** DO NOT DELETE THIS FUNCTION.  This function will be used to test your code
-    // This function takes a String 'input' and produces the result
-    //
-    // input is a fraction string that needs to be evaluated.  For your program, this will be the user input.
-    //      e.g. input ==> "1/2 + 3/4"
-    //        
-    // The function should return the result of the fraction after it has been calculated
-    //      e.g. return ==> "1_1/4"
-    public static String produceAnswer(String input)
-    { 
-        // TODO: Implement this function to produce the solution to the input
-        
-        return "";
+    public static void main(String[] args) {
+        // TODO: Read the input from the user and call produceAnswer with an equation
+    	System.out.println("Enter calculations"); //Asks user for calculations
+    	@SuppressWarnings("resource")
+		Scanner console = new Scanner(System.in);
+    	//String firstInput = console.nextLine();
+    	//System.out.println(produceAnswer(firstInput));
+		String input = console.nextLine();
+    	
+    	while(!input.equals("quit")) {//continues to run until user enters quit
+
+    		System.out.println(produceAnswer(input));
+    		System.out.println("Type 'quit' to exit, otherwise, enter new calculations");
+    		input = console.nextLine();
+    		
+    	}
+
     }
 
-    
+    public static String produceAnswer(String input){ 
+        String[] inputStrings = input.split(" ");//stores the input into an array
+        String operand1 = inputStrings[0];//easier to read
+        
+        Fraction frac1 = new Fraction(operand1);//Because I will use "frac1" as first operand but will also use
+        //to store answer for multiple operands
+        Fraction frac2;
+        Fraction answer = new Fraction();
+
+		for (int i = 2; i < inputStrings.length; i += 2) {
+			frac2 = new Fraction(inputStrings[i]);//Because this way the frac2 starts at second operand
+												//but when updates will store next operand
+			frac1.toImproper();
+			frac2.toImproper();
+
+			if (inputStrings[i -1].equals("+")) {
+				answer = frac1.add(frac2);
+			} else if (inputStrings[i -1].equals("-")) {// subtraction is negative addition
+				frac2.setNumerator(frac2.getNumerator() * -1);
+				answer = frac1.add(frac2);
+			} else if (inputStrings[i -1].equals("*")) {
+				answer = frac1.multiply(frac2);
+			} else if (inputStrings[i -1].equals("/")) {// division is multiplying by reciprocal
+				int temp = frac2.getNumerator();
+				frac2.setNumerator(frac2.getDenominator());
+				frac2.setDenominator(temp);
+				answer = frac1.multiply(frac2);
+			}
+			answer.simplify();
+			frac1 = new Fraction(answer);
+		}
+		return "" + answer;
+    }
+
     
 }
