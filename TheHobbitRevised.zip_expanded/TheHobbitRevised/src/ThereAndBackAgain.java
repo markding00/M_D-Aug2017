@@ -88,7 +88,7 @@ public class ThereAndBackAgain
 			trav.travel(miles);
 	    }
 		for(int i=0; i<party.size();i++) {
-			journey = journey + party.get(i).getName()+ " has traveled "+party.get(i).getDistanceTraveled()+" miles";
+			journey = journey + party.get(i).getName()+ " has traveled "+party.get(i).getDistanceTraveled()+" miles\n";
 		}
 		return journey;
 	}
