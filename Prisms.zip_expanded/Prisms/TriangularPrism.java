@@ -31,12 +31,4 @@ public class TriangularPrism extends Prism
 		return sideA + sideB + sideC;
 	}
 
-	public double calcVolume() {
-		return calcAreaOfBase() * getHeight();
-	}
-
-	public double calcSA() {
-		return (calcAreaOfBase() * 2 + calcPerimeter() * getHeight());
-	}
-	
 }

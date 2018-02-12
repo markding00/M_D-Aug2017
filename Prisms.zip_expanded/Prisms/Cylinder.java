@@ -20,14 +20,4 @@ public class Cylinder extends Prism
 	public double calcPerimeter() {
 		return Math.PI * radius * 2;
 	}
-
-	public double calcVolume() {
-		return calcAreaOfBase() * getHeight();
-	}
-
-	public double calcSA() {
-		return (2 * calcAreaOfBase() + calcPerimeter() * getHeight());
-	}
-	
-	
 }
