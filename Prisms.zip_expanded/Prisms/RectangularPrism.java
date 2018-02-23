@@ -1,3 +1,10 @@
+/*
+ * Mark Ding 
+ * Ms.Dreyer
+ * APCS 1
+ * 02/18/2018
+ */
+
 /* Write this concrete (non-abstract) class called RectangularPrism.  
  * It has 2 private fields (length and width).
  * It inherits its height from its superclass, Prism (because all prisms have a height).
