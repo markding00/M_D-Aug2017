@@ -40,12 +40,29 @@ public class Spreadsheet implements Grid
 	@Override
 	public String getGridText()
 	{
-		String topLetter = "         |";
+		String topLetter = "   |";
 		for(char i = 'A'; i < 'L'; i++) {
 			topLetter += i + "         |";
 		}
-		
-		return topLetter;
+		String numbers = "\n";
+		for(int i = 0; i < 20; i++) {
+			if(i < 9) {
+				numbers += (i+1);
+				numbers += "  |";
+				for(int j = 0; j < 12; j++) {
+					numbers += grid[j][i].abbreviatedCellText();
+				}
+				numbers += "\n";
+			}else {
+				numbers += (i+1);
+				numbers += " |";
+				for(int j = 0; j < 12; j++) {
+					numbers += grid[j][i].abbreviatedCellText();
+				}
+				numbers += "\n";
+			}	
+		}
+		return topLetter + numbers;
 	}
 
 }
