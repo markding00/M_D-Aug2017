@@ -64,5 +64,17 @@ public class Spreadsheet implements Grid
 		}
 		return topLetter + numbers;
 	}
+	//This hshould return the value at that cell using fullCellText() method on Cell interface.
+	public String inspectCell(String cell) {
+		SpreadsheetLocation loc = new SpreadsheetLocation(cell.toUpperCase());
+		return getCell(loc).fullCellText();	
+	}
+	
+	public String assignValues(String cell, String input) {
+		
+		return getGridText();
+		
+	}
+	
 
 }
