@@ -64,16 +64,33 @@ public class Spreadsheet implements Grid
 		}
 		return topLetter + numbers;
 	}
-	//This hshould return the value at that cell using fullCellText() method on Cell interface.
+	//This should return the value at that cell using fullCellText() method on Cell interface.
 	public String inspectCell(String cell) {
 		SpreadsheetLocation loc = new SpreadsheetLocation(cell.toUpperCase());
 		return getCell(loc).fullCellText();	
 	}
 	
+	//Assign the value to the given
 	public String assignValues(String cell, String input) {
 		
 		return getGridText();
 		
+	}
+	//clear the entire sheet
+	public String clear(){
+		for(int i = 0; i<12;i++){
+			for(int j = 0;j<20;j++){
+				grid [i][j] = new EmptyCell();
+			}
+		}
+		return getGridText();
+	}
+	
+	public String clearCell(String cell){
+		//Clear the value within the assigned cell
+		SpreadsheetLocation loc = new SpreadsheetLocation(cell.toUpperCase());  
+		grid[loc.getRow()][loc.getCol()] = new EmptyCell();
+		return getGridText();
 	}
 	
 
