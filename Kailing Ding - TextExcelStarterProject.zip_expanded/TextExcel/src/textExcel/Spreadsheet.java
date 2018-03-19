@@ -16,7 +16,23 @@ public class Spreadsheet implements Grid
 	@Override
 	public String processCommand(String command)
 	{
-		return "";
+		String result = "";
+		String[] Command = command.split(" ",3);
+		
+		if(Command.length == 2&&Command[0].toLowerCase().equals("clear")){  		//clearing a particular cell (e.g., clear A1).
+			result = clearCell(Command[1]);
+		}else if(Command.length == 3){						//assignment to string values (e.g., A1 = "Hello").
+			result = assignValue(Command[0],Command[2]);	
+		}else{
+			if(Command.length==1&&Command[0].toLowerCase().equals("clear")){  //clearing the entire sheet (e.g., clear).
+				result = clear();
+				
+			}else{     			//cell inspection (e.g., A1). This should return the value at that cell
+				result = inspectCell(Command[0]);
+				
+			}
+		}	
+		return result;
 	}
 
 	@Override
@@ -71,8 +87,9 @@ public class Spreadsheet implements Grid
 	}
 	
 	//Assign the value to the given
-	public String assignValues(String cell, String input) {
-		
+	public String assignValue(String cell, String input) {
+		SpreadsheetLocation loc = new SpreadsheetLocation(cell.toUpperCase());
+		grid[loc.getRow()][loc.getCol()] = new TextCell(input);
 		return getGridText();
 		
 	}

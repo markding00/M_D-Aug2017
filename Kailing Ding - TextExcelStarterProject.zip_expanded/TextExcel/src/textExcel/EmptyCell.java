@@ -5,7 +5,7 @@ public class EmptyCell implements Cell{
 	@Override
 	// text for spreadsheet cell display, must be exactly length 10
 	public String abbreviatedCellText() {
-		return "          ";
+		return "         |";
 	}
 
 	@Override

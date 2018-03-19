@@ -7,7 +7,7 @@ public class TextCell implements Cell{
 	}
 	@Override
 	public String abbreviatedCellText() {
-		return word.substring(0,9);
+		return (word.substring(0,8) + "|");
 	}
 
 	@Override
