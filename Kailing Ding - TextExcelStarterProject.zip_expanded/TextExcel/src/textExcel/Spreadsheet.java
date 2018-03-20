@@ -19,18 +19,21 @@ public class Spreadsheet implements Grid
 		String[] Command = command.split(" ",3);
 		
 		if(Command.length == 2&&Command[0].toLowerCase().equals("clear")){  		//clearing a particular cell (e.g., clear A1).
-			return clearCell(Command[1]);
+			clearCell(Command[1]);
+			return getGridText();
 		}else if(Command.length == 3){						//assignment to string values (e.g., A1 = "Hello").
-			return assignValue(Command[0],Command[2]);	
+			assignValue(Command[0],Command[2]);
+			return getGridText();
 		}else{
 			if(Command.length==1&&Command[0].toLowerCase().equals("clear")){  //clearing the entire sheet (e.g., clear).
-				return clear();
-				
-			}else{     			//cell inspection (e.g., A1). This should return the value at that cell
-				return inspectCell(Command[0]);
-				
+				clear();
+				return getGridText();
+			}else if(Command.length==1&&!Command[0].toLowerCase().equals("clear")){     			//cell inspection (e.g., A1). This should return the value at that cell
+				SpreadsheetLocation loc = new SpreadsheetLocation(Command[0]);
+				return getCell(loc).fullCellText();	
 			}
 		}
+		return "";
 	}
 
 	@Override
@@ -80,34 +83,26 @@ public class Spreadsheet implements Grid
 		}
 		return topLetter + numbers;
 	}
-	//This should return the value at that cell using fullCellText() method on Cell interface.
-	public String inspectCell(String cell) {
-		SpreadsheetLocation loc = new SpreadsheetLocation(cell);
-		return getCell(loc).fullCellText();	
-	}
 	
 	//Assign the value to the given
-	public String assignValue(String cell, String input) {
+	public void assignValue(String cell, String input) {
 		SpreadsheetLocation loc = new SpreadsheetLocation(cell);
 		grid[loc.getRow()][loc.getCol()] = new TextCell(input);
-		return getGridText();
 		
 	}
 	//clear the entire sheet
-	public String clear(){
+	public void clear(){
 		for(int i = 0; i<20;i++){
 			for(int j = 0;j<12;j++){
 				grid [i][j] = new EmptyCell();
 			}
 		}
-		return getGridText();
 	}
 	
-	public String clearCell(String cell){
+	public void clearCell(String cell){
 		//Clear the value within the assigned cell
 		SpreadsheetLocation loc = new SpreadsheetLocation(cell);
 		grid[loc.getRow()][loc.getCol()] = new EmptyCell();
-		return getGridText();
 	}
 	
 
