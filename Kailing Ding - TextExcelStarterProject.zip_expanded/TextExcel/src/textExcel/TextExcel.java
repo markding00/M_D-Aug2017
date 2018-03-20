@@ -16,10 +16,7 @@ public class TextExcel
 		while(!done) {
 			if(userInput.nextLine().equals("quit")) {
 				done = true;
-			}else {
-				System.out.println(a.getGridText());
 			}
-			
 		}
 	}
 }
