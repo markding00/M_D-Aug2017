@@ -87,8 +87,18 @@ public class Spreadsheet implements Grid
 	//Assign the value to the given
 	public void assignValue(String cell, String input) {
 		SpreadsheetLocation loc = new SpreadsheetLocation(cell);
-		grid[loc.getRow()][loc.getCol()] = new TextCell(input);
-		
+		if (input.substring(0,1).equals("\"")){ //a text cell
+			grid [loc.getRow()] [loc.getCol()] = new TextCell (input);
+		}
+		else if (input.substring(input.length()-1).equals("%")){ //a percent cell
+			grid [loc.getRow()] [loc.getCol()] = new PercentCell (input);	
+		}
+		else if (input.charAt(0) == ('(')){ //a formula cell
+			grid [loc.getRow()] [loc.getCol()] = new FormulaCell (input);	
+		}
+		else { //a value cell
+			grid [loc.getRow()] [loc.getCol()] = new ValueCell (input);	
+		}
 	}
 	//clear the entire sheet
 	public void clear(){

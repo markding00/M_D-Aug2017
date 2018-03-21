@@ -14,10 +14,11 @@ public class TextExcel
 		Spreadsheet a = new Spreadsheet();
 		Scanner userInput = new Scanner(System.in);
 		while(!done) {
+			String input = userInput.nextLine();
 			if(userInput.nextLine().equals("quit")) {
 				done = true;
 			}else {
-				System.out.println(a.getGridText());
+				System.out.println(a.processCommand(input));
 			}
 		}
 	}
