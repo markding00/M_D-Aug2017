@@ -17,11 +17,11 @@ public abstract class RealCell implements Cell{
 		return input;
 	}
 	
-	public String addSpaces(String hold) {
+	public String addSpaces(String text) {
 		//if the input.length() is under 10, add spaces
-		while(hold.length() < 10) {
-			hold += " ";
+		while(text.length() < 10) {
+			text += " ";
 		}
-		return hold;
+		return text;
 	}
 }
