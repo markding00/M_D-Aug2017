@@ -6,16 +6,10 @@ public abstract class RealCell implements Cell{
 		this.input = input;
 	}
 	@Override
-	public String abbreviatedCellText() {
-		//I overrode this method in the subclasses.
-		return "";
-	}
+	public abstract String abbreviatedCellText();
 
 	@Override
-	public String fullCellText() {
-		//I overrode this method in the subclasses.
-		return "";
-	}
+	public abstract String fullCellText();
 	
 	public abstract double getDoubleValue();
 	

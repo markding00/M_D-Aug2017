@@ -14,4 +14,10 @@ public class FormulaCell extends RealCell{
 		return 0;
 	}
 
+	@Override
+	public String fullCellText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
