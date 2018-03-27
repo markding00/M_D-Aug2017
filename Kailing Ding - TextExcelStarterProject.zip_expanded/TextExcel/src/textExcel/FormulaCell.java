@@ -18,18 +18,18 @@ public class FormulaCell extends RealCell{
 	
 	public double getDoubleValue() {
 		String[] formula = getRealCell().split(" ");
-		double result = 0.0;
-		for(int i = 4; i < formula.length - 4; i += 4) {
+		double result = Double.parseDouble(formula[1]);
+		for(int i = 2; i < formula.length - 3; i += 2) {
 			if(formula[i].equals("+")) {
-				result += Double.parseDouble(formula[i-2]) + Double.parseDouble(formula[i+2]);
+				result += Double.parseDouble(formula[i+1]);
 			}else if(formula[i].equals("-")) {
-				result += Double.parseDouble(formula[i-2]) - Double.parseDouble(formula[i+2]);
+				result -= Double.parseDouble(formula[i+1]);
 			}else if(formula[i].equals("*")) {
-				result += Double.parseDouble(formula[i-2]) * Double.parseDouble(formula[i+2]);
+				result *= Double.parseDouble(formula[i+1]);
 			}else if(formula[i].equals("/")) {
-				result += Double.parseDouble(formula[i-2]) / Double.parseDouble(formula[i+2]);
-			}else if(formula.length == 5){
-				result = Double.parseDouble(formula[2]);
+				result /= Double.parseDouble(formula[i+1]);
+			}else if(formula.length == 3){
+				result = Double.parseDouble(formula[1]);
 			}
 		}
 		return result;
@@ -40,14 +40,6 @@ public class FormulaCell extends RealCell{
 		return getDoubleValue() + "";
 	}
 	
-	public double[] operand() {
-		String[] operandString = getRealCell().split(" ");
-		double[] operand;
-		for(int i = 2; i < operandString.length - 3; i += 4) {
-			double num = Double.parseDouble(operandString[i]);
-			
-		}
-		return operand;
-	}
+	
 
 }
