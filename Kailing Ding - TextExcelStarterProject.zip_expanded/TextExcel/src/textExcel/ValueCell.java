@@ -21,9 +21,7 @@ public class ValueCell extends RealCell {
 		return getRealCell();
 	}
 	
-	public double getDoubleValue() {
-		return Double.parseDouble(getRealCell());
-	}
+	
 	
 	
 }

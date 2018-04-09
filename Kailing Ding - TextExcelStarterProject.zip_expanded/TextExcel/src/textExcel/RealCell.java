@@ -11,7 +11,9 @@ public abstract class RealCell implements Cell{
 	@Override
 	public abstract String fullCellText();
 	
-	public abstract double getDoubleValue();
+	public double getDoubleValue() {
+		return Double.parseDouble(getRealCell());
+	};
 	
 	public String getRealCell(){
 		return input;
