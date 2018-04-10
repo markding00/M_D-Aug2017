@@ -2,8 +2,10 @@ package textExcel;
 
 public class FormulaCell extends RealCell{
 
+	private Cell[][] grid;
 	public FormulaCell(String input) {
 		super(input);
+		
 	}
 	
 	public String abbreviatedCellText() {
@@ -16,9 +18,13 @@ public class FormulaCell extends RealCell{
 	}
 	
 	public double getDoubleValue() {
-		String[] formula = getRealCell().split(" ");
-		double result = Double.parseDouble(formula[1]);
-		for(int i = 2; i < formula.length - 2; i += 2) {
+		String noParenthesis = getRealCell().substring(2, getRealCell().length() - 2);
+		String[] formula = noParenthesis.split(" ");
+		double result = Double.parseDouble(formula[0]);
+		for(int i = 1; i < formula.length - 1; i += 2) {
+			if(formula[i+1].matches(".*[a-zA-Z]).*")) {
+				
+			}
 			if(formula[i].equals("+")) {
 				result += Double.parseDouble(formula[i+1]);
 			}else if(formula[i].equals("-")) {
@@ -27,8 +33,8 @@ public class FormulaCell extends RealCell{
 				result *= Double.parseDouble(formula[i+1]);
 			}else if(formula[i].equals("/")) {
 				result /= Double.parseDouble(formula[i+1]);
-			}else if(formula.length == 3){
-				result = Double.parseDouble(formula[1]);
+			}else if(formula.length == 1){
+				result = Double.parseDouble(formula[0]);
 			}
 		}
 		return result;
@@ -38,7 +44,6 @@ public class FormulaCell extends RealCell{
 	public String fullCellText() {
 		return getRealCell();
 	}
-	
 	
 
 }

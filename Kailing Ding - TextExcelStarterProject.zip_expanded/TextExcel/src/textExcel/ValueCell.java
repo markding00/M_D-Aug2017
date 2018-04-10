@@ -20,6 +20,10 @@ public class ValueCell extends RealCell {
 	public String fullCellText() {
 		return getRealCell();
 	}
+	@Override
+	public double getDoubleValue() {
+		return Double.parseDouble(getRealCell());
+	}
 	
 	
 	
