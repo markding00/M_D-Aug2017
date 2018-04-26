@@ -94,7 +94,7 @@ public class Spreadsheet implements Grid
 			grid [loc.getRow()] [loc.getCol()] = new PercentCell (input);	
 		}
 		else if (input.charAt(0) == ('(')){ //a formula cell
-			grid [loc.getRow()] [loc.getCol()] = new FormulaCell (input);	
+			grid [loc.getRow()] [loc.getCol()] = new FormulaCell (input,this);	
 		}
 		else { //a value cell
 			grid [loc.getRow()] [loc.getCol()] = new ValueCell (input);	
