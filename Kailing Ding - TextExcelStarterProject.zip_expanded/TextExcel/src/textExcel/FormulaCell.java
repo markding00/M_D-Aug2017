@@ -30,26 +30,26 @@ public class FormulaCell extends RealCell{
 		}else if(arr[0].toLowerCase().equals("avg")) {
 			result = avg(arr[1].toLowerCase());
 		}else{
-			result = getCellVal(arr[0]);
+			result = findCell(arr[0]);
 		}
 
 		if(!(arr.length == 1)) {	
 			for(int i = 1; i < arr.length; i+=2) {
 				if(arr[i].equals("+")){
-					result += getCellVal(arr[i+1]);
+					result += findCell(arr[i+1]);
 				}else if(arr[i].equals("-")) {
-					result -= getCellVal(arr[i+1]);
+					result -= findCell(arr[i+1]);
 				}else if(arr[i].equals("*")){
-					result *= getCellVal(arr[i+1]);
+					result *= findCell(arr[i+1]);
 				}else if(arr[i].equals("/")){
-					result /= getCellVal(arr[i+1]);
+					result /= findCell(arr[i+1]);
 				}
 			}
 		}
 		return result;
 	}
 
-	public double getCellVal(String ele) {
+	public double findCell(String ele) {
 		if(!(Character.isDigit(ele.charAt(0))) && !(ele.charAt(0) == '-')){
 			RealCell a = (RealCell) grid.getCell(new SpreadsheetLocation(ele));
 			return a.getDoubleValue();
@@ -58,7 +58,7 @@ public class FormulaCell extends RealCell{
 		}	
 	}
 
-	public double sum(String expression) {//a1-c10
+	public double sum(String expression) {
 		String[] operands = expression.toLowerCase().split("-");
 		int startNum = Integer.parseInt(operands[0].substring(1));
 		int endNum = Integer.parseInt(operands[1].substring(1));
@@ -89,9 +89,6 @@ public class FormulaCell extends RealCell{
 		int totalRow = (endNum - startNum) + 1;
 		return s/(totalCol * totalRow);
 	}
-
-
-
 
 	@Override
 	public String fullCellText() {
