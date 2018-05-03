@@ -1,3 +1,7 @@
+//Mark Ding
+//Ms. Dreyer
+//APCS1
+//This class has the ability to change the forms of a percent cell(decimals form, abbreviated form, etc)
 package textExcel;
 
 public class PercentCell extends RealCell{

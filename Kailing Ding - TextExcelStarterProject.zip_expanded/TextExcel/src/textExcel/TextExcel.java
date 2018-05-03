@@ -1,3 +1,7 @@
+//Mark Ding
+//Ms. Dreyer
+//APCS1
+//This is the class where it has the main method for users to write their input. 
 package textExcel;
 import java.util.Scanner;
 import java.io.FileNotFoundException;

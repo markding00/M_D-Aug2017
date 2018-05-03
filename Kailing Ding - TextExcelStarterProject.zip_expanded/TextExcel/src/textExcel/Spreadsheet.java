@@ -1,3 +1,7 @@
+//Mark Ding
+//Ms. Dreyer
+//APCS1
+//the purpose of this class is to create a spreadsheet and provides processCommand for users to input their values.
 package textExcel;
 
 // Update this file with your own code.

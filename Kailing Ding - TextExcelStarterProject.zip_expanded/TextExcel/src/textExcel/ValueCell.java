@@ -1,3 +1,7 @@
+//Mark Ding
+//Ms. Dreyer
+//APCS1
+//This class has the ability to change the forms of a value cell.
 package textExcel;
 
 public class ValueCell extends RealCell {
