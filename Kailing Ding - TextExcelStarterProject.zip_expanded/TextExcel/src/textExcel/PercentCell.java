@@ -26,7 +26,7 @@ public class PercentCell extends RealCell{
 		
 	}
 	
-	public double getDoubleValue(){
+	public double getDoubleValue(){						//return the percentage in decimal form.
 		String num = getRealCell().substring(0,getRealCell().length()-1);
 		return Double.parseDouble(num) / 100.0;
 	}

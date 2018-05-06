@@ -25,7 +25,7 @@ public class ValueCell extends RealCell {
 		return getRealCell();
 	}
 	@Override
-	public double getDoubleValue() {
+	public double getDoubleValue() { 				//parse the "string" number into "double" number
 		return Double.parseDouble(getRealCell());
 	}
 	
